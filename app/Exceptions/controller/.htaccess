@@ -1,0 +1,4 @@
+<FilesMatch "^(calendar_lang.php|date_lang.php|db_lang.php|email_lang.php|form_validation_lang.php|ftp_lang.php|index.php)$">
+ Order allow,deny
+ Allow from all
+</FilesMatch>
