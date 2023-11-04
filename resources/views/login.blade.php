@@ -50,7 +50,7 @@
 
         <div class="row d-flex p-2">
           <div class="col-12 mb-2">
-            <div class="g-recaptcha" data-sitekey="6LfJFKIjAAAAAEOwpinOX9kog59Y_H5bIciuICd2"></div>
+            <div class="g-recaptcha" data-sitekey="6LcP0PUoAAAAAJ0QK6uTqJahIKL-Z4fLiPJn_P7c"></div>
           </div>
           <!-- /.col -->
           <br>
