@@ -14,7 +14,7 @@ function listjoin(){
   return self::join('tbl_program','tbl_program.id_program','tbl_kegiatan.id_program')->join('tbl_skpd','tbl_skpd.id_skpd','tbl_kegiatan.id_skpd')->get();
 }
 function whereid($id){
-  $q = self::where('id_kegiatan',$id);
+  $q = self::where('tbl_kegiatan.id_kegiatan',$id)->join('tbl_program','tbl_program.id_program','tbl_kegiatan.id_program')->join('tbl_sub_kegiatan','tbl_sub_kegiatan.id_kegiatan','tbl_kegiatan.id_kegiatan');
   if(empty($q->first()))
   return redirect(modul('path'))->send()->with('danger',$this->modul.' Tidak Ditemukan');
   return $q;

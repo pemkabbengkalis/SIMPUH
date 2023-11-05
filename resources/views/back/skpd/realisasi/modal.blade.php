@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div id="myModal{{ $vk['id'] }}" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-md">
+  <div class="modal-dialog modal-lg">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -42,7 +42,7 @@
                     <div class="tab-pane fade active show" id="custom-tabs-one-home{{ $vk['id'] }}" role="tabpanel"
                       aria-labelledby="custom-tabs-one-home-tab">
                       <!--===TW 1 FORM-->
-                      <form action="@if(!empty($vk['tw1_id'])){{ Request::url().'/update' }} @else {{ Request::url().'/create' }} @endif" method="POST">{{ csrf_field() }} 
+                      <form action="@if(!empty($vk['tw1_id'])){{ Request::url().'/update' }} @else {{ Request::url().'/create' }} @endif" method="POST">{{ csrf_field() }}
                         <label>Pilih Tahapan</label>
                           <input type="hidden" value="{{ $vk['id'] }}" name="idtarget[]">
                           <input type="hidden" value="I" name="tahapan[]">
@@ -53,25 +53,25 @@
                             <input  value="<?php (!empty($vk['tw1_rel_satuan']))? print $vk['tw1_rel_satuan'] : print $vk['satuan'] ?>" name="satuan[]" style="width:50%" type="text" class="form-control" placeholder="Satuan" required>
                           </div>
                           </div>
-                  
+
                           <input type="hidden" name="id_realisasi[]" value="{{ $vk['tw1_id'] }}">
-                        
-                          
+
+
                           <label>Dana Realisasi</label>
                           <input value="{{ $vk['tw1_rel_pagu'] }}" type="text" pattern="[0-9,]+" name="realisasi[]" class="form-control" required>
                          <input type="hidden" value="{{ isset($_GET['periode']) ? $_GET['periode'] : date('Y') }}" name="tahun[]">
-                          
+
                          <label>Realisasi Fisik</label>
                          <input value="{{ $vk['tw1_rel_fisik'] }}" type="text" pattern="[0-9,]+" name="realisasifisik[]" class="form-control" required>
-                         
+
                          <label>Keterangan</label>
-                        
+
                           <Textarea class="form-control" required name="keterangan[]">@if(!empty($vk['tw1_keterangan'])){{ $vk['tw1_keterangan'] }} @else - @endif</Textarea>
                           <label>Kendala</label>
-                        
+
                           <Textarea class="form-control" required name="kendala[]">@if(!empty($vk['tw1_kendala'])){{ $vk['tw1_kendala'] }}@else @endif</Textarea>
                           <label>tindakan</label>
-                        
+
                           <Textarea class="form-control" required name="tindakan[]">@if(!empty($vk['tw1_tindakan'])){{ $vk['tw1_tindakan'] }}@else - @endif</Textarea>
                           {{-- <button name="submit"  value="true" style="width:100%;margin-top:10px;" type="submit" class="btn btn-success">Simpan</button>
                       </form> --}}
@@ -80,7 +80,7 @@
                     <div class="tab-pane fade" id="custom-tabs-one-profile{{ $vk['id'] }}" role="tabpanel"
                       aria-labelledby="custom-tabs-one-profile-tab">
                       <!--===TW II FORM-->
-                      {{-- <form action=" @if(!empty($vk['tw2_id'])){{ Request::url().'/update' }} @else {{ Request::url().'/create' }} @endif" method="POST">{{ csrf_field() }} 
+                      {{-- <form action=" @if(!empty($vk['tw2_id'])){{ Request::url().'/update' }} @else {{ Request::url().'/create' }} @endif" method="POST">{{ csrf_field() }}
                          --}}
                         <label>Pilih Tahapan</label>
                           <input type="hidden" value="{{ $vk['id'] }}" name="idtarget[]">
@@ -92,22 +92,22 @@
                             <input  value="<?php (!empty($vk['tw2_rel_satuan']))? print $vk['tw2_rel_satuan'] : print $vk['satuan'] ?>" name="satuan[]" style="width:50%" type="text" class="form-control" placeholder="Satuan" required>
                           </div>
                           </div>
-                          <input type="hidden" name="id_realisasi[]" value="{{ $vk['tw2_id'] }}">                      
+                          <input type="hidden" name="id_realisasi[]" value="{{ $vk['tw2_id'] }}">
                           <label>Dana Realisasi</label>
                           <input value="{{ $vk['tw2_rel_pagu'] }}" type="text" pattern="[0-9,]+" name="realisasi[]" class="form-control" required>
                           <input type="hidden" value="{{ isset($_GET['periode']) ? $_GET['periode'] : date('Y') }}" name="tahun[]">
-                          
+
                           <label>Realisasi Fisik</label>
                          <input value="{{ $vk['tw2_rel_fisik'] }}" type="text" pattern="[0-9,]+" name="realisasifisik[]" class="form-control" required>
 
                           <label>Keterangan</label>
-                        
+
                           <Textarea class="form-control" required name="keterangan[]"> @if(!empty($vk['tw2_keterangan']))  {{ $vk['tw2_keterangan'] }} @else - @endif</Textarea>
                           <label>Kendala</label>
-                        
+
                           <Textarea class="form-control" required name="kendala[]">@if(!empty($vk['tw2_kendala'])) {{ $vk['tw2_kendala'] }} @else - @endif</Textarea>
                           <label>tindakan</label>
-                        
+
                           <Textarea class="form-control" required name="tindakan[]">@if(!empty($vk['tw2_tindakan'])){{ $vk['tw2_tindakan'] }}@else - @endif</Textarea>
                           {{-- <button style="width:100%;margin-top:10px;" type="submit" name="submit"  value="true" class="btn btn-success">Simpan</button>
                       </form> --}}
@@ -116,9 +116,9 @@
                     <div class="tab-pane fade" id="custom-tabs-one-messages{{ $vk['id'] }}" role="tabpanel"
                       aria-labelledby="custom-tabs-one-messages-tab">
                         <!--===TW III FORM-->
-                      {{-- <form action=" @if(!empty($vk['tw3_id'])){{ Request::url().'/update' }} @else {{ Request::url().'/create' }} @endif" method="POST">{{ csrf_field() }} 
+                      {{-- <form action=" @if(!empty($vk['tw3_id'])){{ Request::url().'/update' }} @else {{ Request::url().'/create' }} @endif" method="POST">{{ csrf_field() }}
                          --}}
-                        
+
                         <label>Pilih Tahapan</label>
                           <input type="hidden" value="{{ $vk['id'] }}" name="idtarget[]">
                           <input type="hidden" value="III" name="tahapan[]">
@@ -129,22 +129,22 @@
                             <input  value="<?php (!empty($vk['tw3_rel_satuan']))? print $vk['tw3_rel_satuan'] : print $vk['satuan'] ?>" name="satuan[]" style="width:50%" type="text" class="form-control" placeholder="Satuan" required>
                           </div>
                           </div>
-                          <input type="hidden" name="id_realisasi[]" value="{{ $vk['tw3_id'] }}">                      
+                          <input type="hidden" name="id_realisasi[]" value="{{ $vk['tw3_id'] }}">
                           <label>Dana Realisasi</label>
                           <input value="{{ $vk['tw3_rel_pagu'] }}" type="text" pattern="[0-9,]+" name="realisasi[]" class="form-control" required>
                           <input type="hidden" value="{{ isset($_GET['periode']) ? $_GET['periode'] : date('Y') }}" name="tahun[]">
-                          
+
                           <label>Realisasi Fisik</label>
                          <input value="{{ $vk['tw3_rel_fisik'] }}" type="text" pattern="[0-9,]+" name="realisasifisik[]" class="form-control" required>
 
                           <label>Keterangan</label>
-                        
+
                           <Textarea class="form-control" required name="keterangan[]"> @if(!empty($vk['tw3_keterangan']))  {{ $vk['tw3_keterangan'] }} @else - @endif</Textarea>
                           <label>Kendala</label>
-                        
+
                           <Textarea class="form-control" required name="kendala[]">@if(!empty($vk['tw3_kendala'])) {{ $vk['tw3_kendala'] }} @else - @endif</Textarea>
                           <label>tindakan</label>
-                        
+
                           <Textarea class="form-control" required name="tindakan[]">@if(!empty($vk['tw3_tindakan'])) {{ $vk['tw3_tindakan'] }} @else - @endif</Textarea>
                           {{-- <button style="width:100%;margin-top:10px;" type="submit" name="submit"  value="true" class="btn btn-success">Simpan</button>
                       </form> --}}
@@ -153,7 +153,7 @@
                     <div class="tab-pane fade" id="custom-tabs-one-settings{{ $vk['id'] }}" role="tabpanel"
                       aria-labelledby="custom-tabs-one-settings-tab">
                        <!--===TW III FORM-->
-                      {{-- <form action=" @if(!empty($vk['tw4_id'])){{ Request::url().'/update' }} @else {{ Request::url().'/create' }} @endif" method="POST">{{ csrf_field() }} 
+                      {{-- <form action=" @if(!empty($vk['tw4_id'])){{ Request::url().'/update' }} @else {{ Request::url().'/create' }} @endif" method="POST">{{ csrf_field() }}
                          --}}
                         <label>Pilih Tahapan</label>
                           <input type="hidden" value="{{ $vk['id'] }}" name="idtarget[]">
@@ -165,22 +165,22 @@
                             <input  value="<?php (!empty($vk['tw4_rel_satuan']))? print $vk['tw4_rel_satuan'] : print $vk['satuan'] ?>" name="satuan[]" style="width:50%" type="text" class="form-control" placeholder="Satuan" required>
                           </div>
                           </div>
-                          <input type="hidden" name="id_realisasi[]" value="{{ $vk['tw4_id'] }}">                      
+                          <input type="hidden" name="id_realisasi[]" value="{{ $vk['tw4_id'] }}">
                           <label>Dana Realisasi</label>
                           <input value="{{ $vk['tw4_rel_pagu'] }}" type="text" pattern="[0-9,]+" name="realisasi[]" class="form-control" required>
                           <input type="hidden" value="{{ isset($_GET['periode']) ? $_GET['periode'] : date('Y') }}" name="tahun[]">
-                          
+
                           <label>Realisasi Fisik</label>
                          <input value="{{ $vk['tw4_rel_fisik'] }}" type="text" pattern="[0-9,]+" name="realisasifisik[]" class="form-control" required>
 
                           <label>Keterangan</label>
-                        
+
                           <Textarea class="form-control" required name="keterangan[]">@if(!empty($vk['tw4_keterangan'])) {{ $vk['tw4_keterangan'] }} @else -  @endif</Textarea>
                           <label>Kendala</label>
-                        
+
                           <Textarea class="form-control" required name="kendala[]">@if(!empty($vk['tw4_kendala'])) {{ $vk['tw4_kendala'] }} @else - @endif</Textarea>
                           <label>tindakan</label>
-                        
+
                           <Textarea class="form-control" required name="tindakan[]">@if(!empty($vk['tw4_tindakan'])){{ $vk['tw4_tindakan'] }} @else - @endif</Textarea>
                           <hr>
                           <!-- if($kegiatan_lain != null)
@@ -189,13 +189,13 @@
                             <input placeholder="Kuantitas" style="width:50%" type="text" name="kuantitas_rck" id="" class="form-control" required>
                             <input placeholder="Dana Realisasi" style="width:50%" type="text" name="dana_rck" id="" class="form-control" required>
                           </div>
-                          
+
                           <label>Tingkat Capaian</label>
                           <div class="row" style="margin-left: 2px;margin-right: 2px;">
                             <input placeholder="Kuantitas" type="text" style="width:50%" name=kuantitas_tcp" id="" class="form-control" required>
                             <input placeholder="Dana Realisasi" type="text" style="width:50%" name=dana_tcp" id="" class="form-control" required>
                           </div>
-                         
+
                           endif -->
 
                           <button style="width:100%;margin-top:10px;" type="submit" name="submit"  value="true" class="btn btn-success">Simpan</button>
@@ -214,7 +214,7 @@
           </div>
           <div class="modal-footer">
             <i style="text-align: justify">Nb: Input Data sesuai dengan tahapan Triwulan yang telah di laksanakan,jika belum anda bisa mengabaikannya</i>
-         
+
           </div>
       </form>
     </div>
@@ -227,7 +227,7 @@
   //   const inputs = document.getElementsByName('my-input');
   //   const pattern = /^[0-9,]+$/;
   //   let isValid = true;
-  
+
   //   inputs.forEach(input => {
   //     const value = input.value;
   //     if (!pattern.test(value)) {
@@ -235,7 +235,7 @@
   //       isValid = false;
   //     }
   //   });
-  
+
   //   if (isValid) {
   //     alert("Inputs are valid!");
   //     // Submit the form or perform other actions
@@ -243,22 +243,22 @@
   //     // Do not submit the form or perform other actions
   //   }
   // }
-  
+
   document.querySelectorAll('input[name="realisasi[]"]').forEach(input => {
     input.addEventListener('keydown', event => {
       const keyCode = event.keyCode;
       const value = input.value;
       const pattern = /^[0-9.]*$/;
-  
+
       if (keyCode === 8) { // backspace
         return;
       }
-  
+
       if (keyCode === 46) { // delete
         input.value = "";
         return;
       }
-  
+
       if (!pattern.test(value)) {
         input.value = value.replace(/[^0-9.]/g, '');
         event.preventDefault();
@@ -272,16 +272,16 @@
       const keyCode = event.keyCode;
       const value = input.value;
       const pattern = /^[0-9.]*$/;
-  
+
       if (keyCode === 8) { // backspace
         return;
       }
-  
+
       if (keyCode === 46) { // delete
         input.value = "";
         return;
       }
-  
+
       if (!pattern.test(value)) {
         input.value = value.replace(/[^0-9.]/g, '');
         event.preventDefault();

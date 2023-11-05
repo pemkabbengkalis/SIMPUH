@@ -65,7 +65,7 @@ tbody {
                    <option value="{{ $v }}" @if($v == (isset($_GET['periode']) ? $_GET['periode'] : date('Y'))) selected @endif>{{ $v }}</option>
                 @endforeach
             </select>
-           
+
 
         </div>
         <div class="form-group">
@@ -89,7 +89,7 @@ tbody {
             var trw = document.getElementById('trw').value;
             window.open('https://simpuh.bengkaliskab.go.id/cetak_realisasi/'+idskpd+'/'+tahun+'/'+trw,'popup','width=600,height=600'); return false;
         };
-        
+
     </script>
 
   </div>
@@ -103,7 +103,7 @@ tbody {
                                     Realisasi</h3>
                                     <a data-toggle="modal" data-target="#cetakdata" style="float:right;" class="btn btn-warning"><i class="fa fa-print"></i> Cetak Data</a>
 
-                                    
+
                             </div>
                         </div>
                     </div>
@@ -120,7 +120,7 @@ tbody {
                                     <div class="form-group">
 
                                         <select name="periode" id="" class="form-control form-control-select"
-                                            onchange="if(this.value) {location.href='https://simpuh.bengkaliskab.go.id/skpd/realisasi2?periode='+this.value;}else {location.href='https://simpuh.bengkaliskab.go.id/skpd/realisasi'}">
+                                            onchange="if(this.value) {location.href='{{ url('skpd/realisasi2') }}?periode='+this.value;}else {location.href='{{ url('skpd/realisasi2') }}'}">
                                             <option value="">--Pilih Tahun--</option>
                                             @foreach(getTahun() as $v)
                                             <option value="{{ $v }}" @if($v == (isset($_GET['periode']) ? $_GET['periode'] : date('Y'))) selected @endif>{{ $v }}</option>
@@ -158,22 +158,22 @@ tbody {
                                         <th rowspan="2" colspan="2" style="vertical-align:middle;text-align:center">
                                             Tingkat Capaian (%)</th>
                                         <th rowspan="3" style="vertical-align:middle;text-align:center">Aksi</th>
-                                        
+
                                     </tr>
 
                                     <tr>
 
                                         <th colspan="2" class="text-center">
-                                           
+
                                             <br>REALISASI <br>CAPAIAN TRIWULAN I </th>
                                         <th colspan="2" class="text-center">
-                                            
+
                                             <br>REALISASI <br>CAPAIAN TRIWULAN II </th>
                                         <th colspan="2" class="text-center">
-                                            
+
                                             <br>REALISASI <br>CAPAIAN TRIWULAN III </th>
                                         <th colspan="2" class="text-center">
-                                            
+
                                             <br>REALISASI <br>CAPAIAN TRIWULAN IV </th>
                                     </tr>
                                     <tr>
@@ -192,8 +192,8 @@ tbody {
                                         <th align="center" class="text-center">K</th>
                                         <th align="center" class="text-center">RP</th>
                                     </tr>
-                                
-                                
+
+
                                     <tr class="bg-dark">
                                         <td align="center">1</td>
                                         <td align="center">2</td>
@@ -206,12 +206,12 @@ tbody {
                                         <td align="center" colspan="2">7 =  6</td>
                                         <td colspan="2" align="center">8 = 7/5X100</td>
                                         <td align="center"></td>
-                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php
-                                    
+
                                     @endphp
 
                                     @foreach($data as $i => $v)
@@ -221,7 +221,7 @@ tbody {
                                      $kuantitasprog = 0;
                                      $realisasiprog = 0;
                                      $noungulan = 1;
-                                    
+
                                      @endphp
                                      @for($no=0;$no < $countprogram; $no++)
                                      <!--Program-->
@@ -281,20 +281,20 @@ tbody {
                                         $countsubkegiatan = count($subkegiatan);
                                         $sumtcpkuantitas = 0 ;
                                         $jumtcpkuantitas = 0 ;
-                                        $sumcprp = 0; 
+                                        $sumcprp = 0;
                                         $jumcprp = 0;
-                                        
+
                                     @endphp
                                     @foreach($subkegiatan as $is => $vsub)
                                     @php
-                                            
+
                                     $vk = get_kegiatanone($program[$no]->id_program,$tahuncatch,Session('id_skpd'),$vk->id_kegiatan,$vsub->id_sub_kegiatan);
                                     $sumtcpkuantitas += $vk['tcp_kuantitas'];
                                     $jumtcpkuantitas ++;
-                                    $sumcprp += $vk['tcp_pagu']; 
+                                    $sumcprp += $vk['tcp_pagu'];
                                     $jumcprp ++;
 
-                                    
+
                                     @endphp
                                     <tr>
                                         <td></td>
@@ -365,9 +365,9 @@ tbody {
                                         </td>
                                         <td></td>
                                     </tr>
-                              
+
                                     @endforeach
-                                   
+
                                 </tbody>
                             </table>
                         </div>

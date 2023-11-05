@@ -9,16 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="/frontend/assets/images/favicon.png">
+    <link rel="shortcut icon" href="{{ asset('frontend') }}/assets/images/favicon.png">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Quicksand:700|Roboto:400,400i,700&display=swap" rel="stylesheet">
 
     <!-- FontAwesome JS-->
-    <script defer src="/frontend/assets/fontawesome/js/all.min.js"></script>
+    <script defer src="{{ asset('frontend') }}/assets/fontawesome/js/all.min.js"></script>
 
     <!-- Theme CSS -->
-    <link id="theme-style" rel="stylesheet" href="/frontend/assets/css/theme.css">
+    <link id="theme-style" rel="stylesheet" href="{{ asset('frontend') }}/assets/css/theme.css">
 		<style>
 			body {
 				background-image: url('{{ asset('frontend') }}/assets/images/bg-simpuh.png');
