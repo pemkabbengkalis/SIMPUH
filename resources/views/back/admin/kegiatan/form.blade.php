@@ -65,7 +65,8 @@
                           <label for="">Kode Sub Kegiatan & Nama Sub Kegiatan</label>
                           <select  name="kode_sub_kegiatan" class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" ></select>
                         </div>
-
+                        <input type="hidden" name="idkegiatan" value="<?php echo (!empty($edit)) ? $edit->id_kegiatan : 'null'; ?>">
+                        <input type="hidden" name="idsubkegiatan" value="<?php echo (!empty($edit)) ? $edit->id_sub_kegiatan : 'null'; ?>">
                         <div class="form-group">
                           <label for="">SKPD TERKAIT</label>
                           <select name="id_skpd" class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
@@ -101,7 +102,7 @@
     window.onload = function() {
       var selectElement = document.querySelector('select[name="id_program"]');
       getval(selectElement);
-      get_kegiatans(id_program);
+
     };
 function getval(sel)
 {
@@ -119,6 +120,7 @@ function getsub(sel)
     get_sub_kegiatans(id_kegiatan);
 }
 function get_kegiatans(id_program) {
+    var id_kegiatan = <?php echo (!empty($edit)) ? json_encode($edit) : 'null'; ?>;
             $('[name="kode_kegiatan"]').html("");
             $.ajax({
                 headers: {
@@ -127,7 +129,7 @@ function get_kegiatans(id_program) {
                 url: "{{url('admin/kegiatan/getsubkegiatans')}}",
                 type: 'POST',
                 data: {
-
+                    id_kegiatan : id_kegiatan,
                     id_program  : id_program
                 },
                 success: function (response) {
@@ -135,12 +137,16 @@ function get_kegiatans(id_program) {
                     if(obj != '') {
                         $('[name="kode_kegiatan"]').html(obj);
                         //AIZ.plugins.bootstrapSelect('refresh');
+                        var selectedValue = $('[name="kode_kegiatan"]').val();
+                        get_sub_kegiatans(selectedValue);
+
                     }
                 }
             });
         }
 
         function get_sub_kegiatans(id_kegiatan) {
+            var id_sub_kegiatan = <?php echo (!empty($edit)) ? json_encode($edit) : 'null'; ?>;
             $('[name="kode_sub_kegiatan"]').html("");
             $.ajax({
                 headers: {
@@ -149,7 +155,8 @@ function get_kegiatans(id_program) {
                 url: "{{url('admin/kegiatan/getsubsubkegiatans')}}",
                 type: 'POST',
                 data: {
-                    id_kegiatan  : id_kegiatan
+                    id_kegiatan  : id_kegiatan,
+                    id_sub_kegiatan  : id_sub_kegiatan
                 },
                 success: function (response) {
                     var obj = JSON.parse(response);

@@ -37,6 +37,8 @@ function input($data){
   ]);
   return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil ditambah');
 }
+
+
 function remove($id){
   $q = self::where('id_kegiatan',$id);
   if(empty($q->first()))
@@ -45,12 +47,20 @@ function remove($id){
   return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil Dihapus');
 }
 function edit($id,$data){
-  self::where('id_kegiatan',$id)->update([
-    'kode_kegiatan'=>$data->kode_kegiatan,
-    'id_skpd'=>$data->id_skpd,
-    'nama_kegiatan'=>$data->nama_kegiatan,
-    'id_program'=>$data->id_program,
-  ]);
-  return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil Diedit');
+    $kegiatan    = explode(' ',$data->kode_kegiatan);
+    $subkegiatan = explode(' ',$data->kode_sub_kegiatan);
+    $program  = findProgram($data->id_program);
+    $keg      = DB::table('tbl_kegiatan')->where('id_kegiatan',$data->idkegiatan)->update([
+      'kode_kegiatan'=>$kegiatan[0],
+      'id_skpd'=>$data->id_skpd,
+      'nama_kegiatan'=>str_replace($kegiatan[0],'',$data->kode_kegiatan),
+      'id_program'=>$program['id_program'],
+    ]);
+    $subkeg   = SubKegiatan::where('id_sub_kegiatan',$data->idsubkegiatan)->update([
+      'nama_sub_kegiatan'=>str_replace($subkegiatan[0],'',$data->kode_sub_kegiatan),
+      'kode_sub_kegiatan'=>$subkegiatan[0],
+      'id_kegiatan'=>$keg,
+    ]);
+    return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil ditambah');
 }
 }
