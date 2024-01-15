@@ -49,9 +49,10 @@ class KegiatanController extends Controller
 
   function getsubkegiatans(Request $r){
      $data   = refprogram::all();
+
      //$cities = City::where('status', 1)->where('state_id', $request->state_id)->get();
      $html = '<option value="">Pilih Kegiatan</option>';
-        
+
         foreach ($data as $row) {
             $indexawal = explode(' ',$row->nama_ref);
             if($indexawal[0]){
@@ -60,14 +61,16 @@ class KegiatanController extends Controller
                 $array = array($arraydot[0],$arraydot[1],$arraydot[2]);
                 $arr   = implode(".",$array);
                 if($r->id_program==$arr){
-                  $html .= '<option value="' . $row->nama_ref . '">' . $row->nama_ref . '</option>';
+                  $temKodeKegiatan = explode(' ',$row->nama_ref);
+                  $selected = ($temKodeKegiatan[0]==$r->id_kegiatan['kode_kegiatan']) ? 'selected':'';
+                  $html .= '<option value="' . $row->nama_ref . '" '.$selected.'>' . $row->nama_ref . '</option>';
                 }
-                
+
 
               }
             }
         }
-        
+
         echo json_encode($html);
   }
 
@@ -76,7 +79,7 @@ class KegiatanController extends Controller
     $data   = refprogram::where('kode2',2)->get();
      //$cities = City::where('status', 1)->where('state_id', $request->state_id)->get();
      $html = '<option value="">Pilih Sub Kegiatan</option>';
-        
+
         foreach ($data as $row) {
             $indexawal = explode(' ',$row->nama_ref);
             if($indexawal[0]){
@@ -85,14 +88,16 @@ class KegiatanController extends Controller
                 $array = array($arraydot[0],$arraydot[1],$arraydot[2],$arraydot[3],$arraydot[4]);
                 $arr   = implode(".",$array);
                 if($idkegiatan[0]==$arr){
-                  $html .= '<option value="' . $row->nama_ref . '">' . $row->nama_ref . '</option>';
+                  $temKodeKegiatan = explode(' ',$row->nama_ref);
+                  $selected = ($temKodeKegiatan[0]==$r->id_sub_kegiatan['kode_sub_kegiatan']) ? 'selected':'';
+                  $html .= '<option value="' . $row->nama_ref . '" '.$selected.'>' . $row->nama_ref . '</option>';
                 }
-                
+
 
               }
             }
         }
-        
+
         echo json_encode($html);
   }
 

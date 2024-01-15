@@ -70,8 +70,17 @@ class superadmin
             "crud" => ['create','edit','delete'],
           ],
           [
+            "sort" => 3,
+            "nama_menu" => "Data Kegiatan",
+            "path"  => "admin/data_kegiatan",
+            "icon"  => "fa-money-bill-alt",
+            "function"  =>"Kegiatan",
+            "controller"  =>"dataKegiatanController",
+            "crud" => ['create','edit','delete'],
+          ],
+          [
             "sort" => 5,
-            "nama_menu" => "Kegiatan & SUB",
+            "nama_menu" => "Kegiatan & SUB SKPD",
             "path"  => "admin/kegiatan",
             "icon"  => "fa-money-bill-alt",
             "function"  =>"kegiatan",

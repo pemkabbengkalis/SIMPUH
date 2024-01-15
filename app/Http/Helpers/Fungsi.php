@@ -85,7 +85,7 @@ function getChartBYunggulan($tahun){
   ->get();
   $target = DB::table('tbl_target')->where('target_tahun', $tahun)->get();
   $jumlahkegiatan = count($target);
-  
+
   $result = array();
   foreach ($data as $key => $value) {
     $pagu =  DB::table('tbl_program_unggulan')
@@ -135,11 +135,11 @@ function getChartBYunggulan($tahun){
     ];
 
     array_push($result,$d);
-    
+
   }
 
   print json_encode($result);
-  
+
 }
 
 
@@ -158,7 +158,7 @@ function getrealisasiKIA($tahun){
   $count_kuanttw4 = 0;
   $targets  = count($target);
   foreach ($target as $key => $v) {
-   
+
 
     foreach($tw as $triwulan){
       $realisasi = DB::table('tbl_realisasi')
@@ -202,11 +202,11 @@ function getrealisasiKIA($tahun){
         $counttw4 +=$percentage;
         $count_kuanttw4 +=$percentage_k;
       }
-      
+
     }
 
-    
-    
+
+
   }
   $d = [
     [
@@ -240,7 +240,7 @@ function getrealisasiKIA($tahun){
         ];
     }
 
-    
+
   print json_encode($result);
 
 }
@@ -248,11 +248,11 @@ function getrealisasiKIA($tahun){
 
 function getpersenanggaranfromskpd($id,$tahun){
   try {
-   
+
     $target = DB::table('tbl_target')->where('id_skpd', $id)->where('target_tahun', $tahun)->sum('pagu');
     $target_k = DB::table('tbl_target')->where('id_skpd', $id)->where('target_tahun', $tahun)->sum('kuantitas');
     $target = ($target != null) ? $target : 0;
-    
+
     $realisasi = DB::table('tbl_realisasi')
         ->join('tbl_target', 'tbl_target.id', 'tbl_realisasi.id_target')
         ->where('tbl_realisasi.id_skpd', $id)
@@ -264,9 +264,9 @@ function getpersenanggaranfromskpd($id,$tahun){
         ->where('tbl_realisasi.id_skpd', $id)
         ->where('realisasi_tahun', $tahun)
         ->sum('realisasi_kuantitas');
-    
+
     $realisasi = ($realisasi != null) ? $realisasi : 0;
-    
+
     $persen = ($target != 0) ? ((($realisasi / $target) * 100) > 100)? 100 : ($realisasi / $target) * 100 : 0;
     $persenkinerja = ($target != 0) ? ((($realisasi_k / $target_k) * 100) > 100)? 100 : ($realisasi_k / $target_k) * 100 : 0;
     $data = [
@@ -307,14 +307,14 @@ function getDataGrafikBYTW($id,$tahun,$tw){
 
         $hasil_a = (($realisasi_a / $target_a) * 100) > 100 ? 100 : ($realisasi_a / $target_a) * 100;
         $persenanggaran +=$hasil_a;
-        
+
 
     }
-   
+
 
     $target = DB::table('tbl_target')->where('id_skpd', $id)->where('target_tahun', $tahun)->sum('pagu');
     $target = ($target != null) ? ($target/4) : 0;
-    
+
     $realisasi = DB::table('tbl_realisasi')
         ->join('tbl_target', 'tbl_target.id', 'tbl_realisasi.id_target')
         ->where('tbl_realisasi.id_skpd', $id)
@@ -322,7 +322,7 @@ function getDataGrafikBYTW($id,$tahun,$tw){
         ->where('realisasi_tahun', $tahun)
         ->sum('realisasi_pagu');
     $realisasi = ($realisasi != null) ? $realisasi : 0;
-    
+
     $persen = ($target != 0) ? ((($realisasi / $target) * 100) > 100)? 100 : ($realisasi / $target) * 100 : 0;
     $data = [
       'persen'=>$persenkinerja,
@@ -361,7 +361,7 @@ function tw1notarget($id,$tahap,$tahun){
 }
 
 function listSKPDGrafik($tahun){
-  
+
  $result = array();
   $skpd = DB::table('tbl_skpd')->join('tbl_target','tbl_target.id_skpd','tbl_skpd.id_skpd')->groupby('tbl_skpd.id_skpd')->get();
   foreach($skpd as $i =>$v){
@@ -377,7 +377,7 @@ function listSKPDGrafik($tahun){
     ];
     array_push($result,$data);
   }
-  
+
   return $result;
 
 }
@@ -441,7 +441,7 @@ function findProgram($id){
 }
 function get_programfromidunggulan($id,$tahun,$idskpd){
   return DB::table('tbl_program')->where('tbl_target.id_skpd',$idskpd)->where('id_program_unggulan',$id)->where('target_tahun',$tahun)
-          
+
           ->join('tbl_kegiatan','tbl_kegiatan.id_program','tbl_program.id_program')
           ->join('tbl_sub_kegiatan','tbl_sub_kegiatan.id_kegiatan','tbl_kegiatan.id_kegiatan')
           ->join('tbl_target','tbl_target.id_sub_kegiatan','tbl_sub_kegiatan.id_sub_kegiatan')->groupby('nama_program')->get();
@@ -497,24 +497,28 @@ function get_kegiatanone($id,$tahun,$idskpd,$idkegiatan,$idsub){
         'tw1_keterangan'=>(!empty($tw1->keterangan)) ? $tw1->keterangan : '',
         'tw1_kendala'=>(!empty($tw1->kendala)) ? $tw1->kendala : '',
         'tw1_tindakan'=>(!empty($tw1->tindakan))? $tw1->kendala : '',
+        'tw1_rel_fisik'=>(!empty($tw1->realisasifisik))? $tw1->realisasifisik:0,
         'tw2_kuantitas'=>(!empty($tw2->realisasi_kuantitas)) ? $tw2->realisasi_kuantitas : '',
         'tw2_rel_satuan'=>(!empty($tw2->realisasi_satuan)) ? $tw2->realisasi_satuan : '',
         'tw2_rel_pagu'=>(!empty($tw2->realisasi_pagu)) ? $tw2->realisasi_pagu : 0,
         'tw2_keterangan'=>(!empty($tw2->keterangan)) ? $tw2->keterangan : '',
         'tw2_kendala'=>(!empty($tw2->kendala)) ? $tw2->kendala : '',
         'tw2_tindakan'=>(!empty($tw2->tindakan))? $tw2->kendala : '',
+        'tw2_rel_fisik'=>(!empty($tw2->realisasifisik))? $tw2->realisasifisik:0,
         'tw3_kuantitas'=>(!empty($tw3->realisasi_kuantitas)) ? $tw3->realisasi_kuantitas : '',
         'tw3_rel_satuan'=>(!empty($tw3->realisasi_satuan)) ? $tw3->realisasi_satuan : '',
         'tw3_rel_pagu'=>(!empty($tw3->realisasi_pagu)) ? $tw3->realisasi_pagu : 0,
         'tw3_keterangan'=>(!empty($tw3->keterangan)) ? $tw3->keterangan : '',
         'tw3_kendala'=>(!empty($tw3->kendala)) ? $tw3->kendala : '',
         'tw3_tindakan'=>(!empty($tw3->tindakan))? $tw3->kendala : '',
+        'tw3_rel_fisik'=>(!empty($tw3->realisasifisik))? $tw3->realisasifisik:0,
         'tw4_kuantitas'=>(!empty($tw4->realisasi_kuantitas)) ? $tw4->realisasi_kuantitas : '',
         'tw4_rel_satuan'=>(!empty($tw4->realisasi_satuan)) ? $tw4->realisasi_satuan : '',
         'tw4_rel_pagu'=>(!empty($tw4->realisasi_pagu)) ? $tw4->realisasi_pagu : 0,
         'tw4_keterangan'=>(!empty($tw4->keterangan)) ? $tw4->keterangan : '',
         'tw4_kendala'=>(!empty($tw4->kendala)) ? $tw4->kendala : '',
         'tw4_tindakan'=>(!empty($tw4->tindakan))? $tw4->kendala : '',
+        'tw4_rel_fisik'=>(!empty($tw4->realisasifisik))? $tw4->rrealisasifisik:0,
         'tw1_id'=>(!empty($tw1->id_realisasi))? $tw1->id_realisasi : null,
         'tw2_id'=>(!empty($tw2->id_realisasi))? $tw2->id_realisasi : null,
         'tw3_id'=>(!empty($tw3->id_realisasi))? $tw3->id_realisasi : null,
@@ -523,9 +527,9 @@ function get_kegiatanone($id,$tahun,$idskpd,$idkegiatan,$idsub){
         'totpagu'=>$totpagu,
         'tcp_pagu'=>$tcp_pagu,
         'tcp_kuantitas'=>$tcp_kuantitas,
-       ]; 
-    
-    
+       ];
+
+
 
     return $da;
 }
@@ -603,7 +607,7 @@ function get_kegiatan($id,$tahun,$idskpd){
         'totpagu'=>$totpagu,
         'tcp_pagu'=>$tcp_pagu,
         'tcp_kuantitas'=>$tcp_kuantitas,
-       ]; 
+       ];
        array_push($result,$da);
     }
 

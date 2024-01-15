@@ -34,8 +34,8 @@ class RealisasiSkpdController extends Controller
     foreach ($result as $key => $value) {
       array_push($data,$value);
     }
-  
-    
+
+
 
 
 
@@ -53,8 +53,8 @@ class RealisasiSkpdController extends Controller
     }
 
     $tahuncatch = isset($_GET['periode'])?$_GET['periode']:date('Y');
-  
-    
+
+
 
 
 
@@ -62,9 +62,9 @@ class RealisasiSkpdController extends Controller
     //print json_encode($data);
   }
 
-  
 
- 
+
+
  function tw4($id,$tahap,$tahun){
     return Realisasi::where('realisasi_tahun',$tahun)
             ->where('triwulan',$tahap)
@@ -99,6 +99,7 @@ class RealisasiSkpdController extends Controller
           'realisasi_tahun'=>$req->tahun[$key],
           'realisasi_bulan'=>$this->bulantahapan($req->tahapan[$key]),
           'realisasi_pagu'=>$vs,
+          'realisasifisik'=>$req->realisasifisik[$key],
           'realisasi_kuantitas'=>$req->kuantitas[$key],
           'realisasi_satuan'=>$req->satuan[$key],
           'triwulan'=>$req->tahapan[$key],
@@ -109,7 +110,7 @@ class RealisasiSkpdController extends Controller
     }
 
     return back()->with('success',' Data berhasil diupdate');
-    
+
   }
 
   function delete($id){
@@ -119,7 +120,7 @@ class RealisasiSkpdController extends Controller
     } catch (\Throwable $th) {
       return back()->with('danger',$th->getmessage());
     }
-    
+
   }
 
 
@@ -172,13 +173,13 @@ class RealisasiSkpdController extends Controller
     // }
 
     return back()->with('success',' Data berhasil diupdate');
-    
+
   }
 
 
   function createganda(Request $req){
     if($req->has('id_realisasi')){
-      
+
       $kuantitas = implode(',',$req->kuantitas);
       $satuan    = implode(',',$req->satuan);
       try {
@@ -199,7 +200,7 @@ class RealisasiSkpdController extends Controller
       } catch (\Throwable $th) {
         return back()->with('danger',$th->getMessage());
       }
-      
+
     }else{
       $kuantitas = implode(',',$req->kuantitas);
       $satuan    = implode(',',$req->satuan);
@@ -231,12 +232,12 @@ class RealisasiSkpdController extends Controller
       return back()->with('danger',$th->getMessage());
     }
     }
-    
-     
-    
+
+
+
   }
 
-  
+
 
   function bulantahapan($data){
     if($data=='I'){

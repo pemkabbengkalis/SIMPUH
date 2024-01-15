@@ -73,23 +73,23 @@ function __construct(){
     ]
   );
 
+//   add_module(
+//     [
+//       "sort" => 4,
+//       "nama_menu" => "Realisasi",
+//       "path"  => "skpd/realisasi",
+//       "icon"  => "fa-chart-line",
+//       "function"  =>"index",
+//       "controller"  =>"RealisasiSkpdController",
+//       "level"  => "skpd",
+//       "crud" => ['create','update','delete','realisasiganda','createganda'],
+//       "child"  => null,
+//     ]
+//   );
   add_module(
     [
       "sort" => 4,
       "nama_menu" => "Realisasi",
-      "path"  => "skpd/realisasi",
-      "icon"  => "fa-chart-line",
-      "function"  =>"index",
-      "controller"  =>"RealisasiSkpdController",
-      "level"  => "skpd",
-      "crud" => ['create','update','delete','realisasiganda','createganda'],
-      "child"  => null,
-    ]
-  );
-  add_module(
-    [
-      "sort" => 4,
-      "nama_menu" => "Realisasi DEMO",
       "path"  => "skpd/realisasi2",
       "icon"  => "fa-chart-line",
       "function"  =>"index2",
