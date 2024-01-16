@@ -15,6 +15,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="/backend_template/dist/css/adminlte.min.css">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 <body class="hold-transition login-page">
   @if(Session::has('danger'))
@@ -49,13 +50,13 @@
         </div>
 
         <div class="row d-flex p-2">
-          <div class="col-12 mb-2">
+          {{-- <div class="col-12 mb-2">
             <div class="g-recaptcha" data-sitekey="6LcXEVIpAAAAAFrh7hEzAjqR0Whil6nsQBgTohbU"></div>
-          </div>
+          </div> --}}
           <!-- /.col -->
           <br>
           <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block" placeholder="Enter your Password">MASUK</button>
+            <button type="submit" data-action='submit' class="btn btn-primary btn-block g-recaptcha" data-sitekey="6LcXEVIpAAAAAFrh7hEzAjqR0Whil6nsQBgTohbU" data-callback='onSubmit' placeholder="Enter your Password">MASUK</button>
           </div>
           <!-- /.col -->
         </div>
