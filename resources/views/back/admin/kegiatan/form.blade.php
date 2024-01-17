@@ -27,6 +27,14 @@
                         <form method="post" action="{{URL::full()}}">
                           @csrf
                         <div class="card-body">
+                            <div class="form-group">
+                                <label for="">SKPD TERKAIT</label>
+                                <select name="id_skpd" class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
+                                    @foreach($skpd->get() as $index => $v)
+                                      <option {{!empty($edit) && $v->id_skpd==$edit->id_skpd ? 'selected':''}} value="{{ $v->id_skpd }}">{{ $v->nama_skpd }}</option>
+                                    @endforeach
+                                </select>
+                              </div>
                           <div class="form-group">
                             <label for="">Nama Program</label>
                             <select onchange="getval(this)"  class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" name="id_program" required>
@@ -67,14 +75,7 @@
                         </div>
                         <input type="hidden" name="idkegiatan" value="<?php echo (!empty($edit)) ? $edit->id_kegiatan : 'null'; ?>">
                         <input type="hidden" name="idsubkegiatan" value="<?php echo (!empty($edit)) ? $edit->id_sub_kegiatan : 'null'; ?>">
-                        <div class="form-group">
-                          <label for="">SKPD TERKAIT</label>
-                          <select name="id_skpd" class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                              @foreach($skpd->get() as $index => $v)
-                                <option {{!empty($edit) && $v->id_skpd==$edit->id_skpd ? 'selected':''}} value="{{ $v->id_skpd }}">{{ $v->nama_skpd }}</option>
-                              @endforeach
-                          </select>
-                        </div>
+
                         </div>
                         <div class="card-footer">
                             <button name="submit" type="submit" class="btn btn-primary" value="true">Submit</button>
