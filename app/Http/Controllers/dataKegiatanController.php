@@ -50,7 +50,8 @@ class dataKegiatanController extends Controller
   function getsubkegiatans(Request $r){
      $data   = refprogram::all();
      //$cities = City::where('status', 1)->where('state_id', $request->state_id)->get();
-     $html = '<option value="">Pilih Kegiatan</option>';
+     try {
+        $html = '<option value="">Pilih Kegiatan</option>';
 
         foreach ($data as $row) {
             $indexawal = explode(' ',$row->nama_ref);
@@ -69,6 +70,10 @@ class dataKegiatanController extends Controller
         }
 
         echo json_encode($html);
+     } catch (\Throwable $th) {
+        print $th->getmessage();
+     }
+
   }
 
   function getsubsubkegiatans(Request $r){

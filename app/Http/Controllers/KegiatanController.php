@@ -60,10 +60,15 @@ class KegiatanController extends Controller
               if(count($arraydot) == 5){
                 $array = array($arraydot[0],$arraydot[1],$arraydot[2]);
                 $arr   = implode(".",$array);
+                if($r->has('id_program') && $r->has('id_kegiatan') && $r->id_kegiatan != ''){
                 if($r->id_program==$arr){
                   $temKodeKegiatan = explode(' ',$row->nama_ref);
                   $selected = ($temKodeKegiatan[0]==$r->id_kegiatan['kode_kegiatan']) ? 'selected':'';
                   $html .= '<option value="' . $row->nama_ref . '" '.$selected.'>' . $row->nama_ref . '</option>';
+                }
+                }else{
+                  $temKodeKegiatan = explode(' ',$row->nama_ref);
+                  $html .= '<option value="' . $row->nama_ref . '">' . $row->nama_ref . '</option>';
                 }
 
 
@@ -87,10 +92,14 @@ class KegiatanController extends Controller
               if(count($arraydot) == 6){
                 $array = array($arraydot[0],$arraydot[1],$arraydot[2],$arraydot[3],$arraydot[4]);
                 $arr   = implode(".",$array);
-                if($idkegiatan[0]==$arr){
-                  $temKodeKegiatan = explode(' ',$row->nama_ref);
-                  $selected = ($temKodeKegiatan[0]==$r->id_sub_kegiatan['kode_sub_kegiatan']) ? 'selected':'';
-                  $html .= '<option value="' . $row->nama_ref . '" '.$selected.'>' . $row->nama_ref . '</option>';
+                if($r->has('id_sub_kegiatan') && $r->has('id_kegiatan') && $r->id_sub_kegiatan != ''){
+                    if($idkegiatan[0]==$arr){
+                    $temKodeKegiatan = explode(' ',$row->nama_ref);
+                    $selected = ($temKodeKegiatan[0]==$r->id_sub_kegiatan['kode_sub_kegiatan']) ? 'selected':'';
+                    $html .= '<option value="' . $row->nama_ref . '" '.$selected.'>' . $row->nama_ref . '</option>';
+                    }
+                }else{
+                    $html .= '<option value="' . $row->nama_ref . '">' . $row->nama_ref . '</option>';
                 }
 
 
