@@ -92,11 +92,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title">Progres Realisasi Program Unggulan Kabupaten Bengkalis</h5>
-                      
+
                         <div class="card-tools">
-                            
+
                                 <div class="btn-group">
-                                
+
                                     <form action="{{ url('admin/dashboard') }}">
                                         <ul class="nav nav-pills ml-auto">
                                             <li class="nav-item">
@@ -108,7 +108,7 @@
                                                 </select>
                                             </li>
                                             <li class="nav-item" style="margin-left:10px">
-                                                <select name="tahun" id="" class="form-control form-control-select"> 
+                                                <select name="tahun" id="" class="form-control form-control-select">
                                                     @foreach ($tahun as $row)
                                                         <option value="{{ $row->tahun }}" @if($periode == $row->tahun) selected @endif>{{ $row->tahun }}</option>
                                                     @endforeach
@@ -120,8 +120,8 @@
                                         </ul>
                                     </form>
                                 </div>
-                          
-                            
+
+
                         </div>
                     </div>
                     @if(isset($_GET['filter']))
@@ -138,10 +138,7 @@
                                     </tr>
                                     <tr>
                                         <th>
-                                            Rp
-                                        </th>
-                                        <th>
-                                            %
+                                           <center> % </center>
                                         </th>
                                     </tr>
                                 </thead>
@@ -152,46 +149,58 @@
                                         <td>{{$v->nama_program_unggulan}}</td>
                                         <td>{{gettarget($v->id_program_unggulan,$th)}}</td>
                                         <td>{{getrealisasi($v->id_program_unggulan,$th)}}</td>
-                                        <td>-</td>
-                                        <td>-</td>
+                                        <td>
+                                           <center> @php
+                                                $target = (float) floatval(preg_replace("/[^0-9.]/", "", gettarget($v->id_program_unggulan,$th)));
+                                                $realisasi = (float) floatval(preg_replace("/[^0-9.]/", "", getrealisasi($v->id_program_unggulan,$th)));
+                                                if($target != 0){
+                                                    echo floor(($realisasi/$target) * 100);
+                                                }else{
+                                                    echo floatval(gettarget($v->id_program_unggulan,$th));
+                                                }
+
+
+                                            @endphp
+                                            % </center>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                          </div>
                       @elseif($_GET['filter']=='GRAFIK')
-                   
+
                       <div class="card-body">
-                        
+
 
                         <figure class="highcharts-figure">
                             <div id="chart"></div>
-                       
+
                         </figure>
-                        
+
                      </div>
 
 
                      <div class="card-body">
-                        
+
 
                         <figure class="highcharts-figure">
                             <div id="chartunggulan"></div>
-                       
+
                         </figure>
-                        
+
                      </div>
 
                      <div class="card-body">
-                        
+
 
                         <figure class="highcharts-figure">
                             <div id="skpdchart"></div>
-                       
+
                         </figure>
-                        
+
                      </div>
-               
+
                       @else
                         <div class="card-body">
                             <div class="row">
@@ -210,13 +219,13 @@
                                                 $capek = 1;
                                             @endphp
                                             @foreach ($anggaranpersen as $row)
-                                           
+
                                                     <tr>
                                                         <th style="font-weight:normal;text-align:center" scope="row">{{ $capek++ }}</th>
                                                         <td>{{ $row['nama_skpd'] }}</td>
                                                         <td class="text-center">{{ number_format($row['persenkinerja'], 1) . '' }}</td>
-                                                    </tr>  
-                                           
+                                                    </tr>
+
                                             @endforeach
                                             </tbody>
                                         </table>
@@ -237,19 +246,19 @@
                                                     $capek = 1;
                                                 @endphp
                                                 @foreach ($anggaranpersen as $row)
-                                               
+
                                                         <tr>
                                                             <th style="font-weight:normal;text-align:center" scope="row">{{ $capek++ }}</th>
                                                             <td>{{ $row['nama_skpd'] }}</td>
                                                             <td class="text-center" >{{  number_format($row['anggaran'], 1) . ''  }}</td>
-                                                        </tr>  
-                                               
+                                                        </tr>
+
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                       @endif
@@ -259,7 +268,7 @@
         </div>
     </div>
 
-   
+
 @endsection
 
 

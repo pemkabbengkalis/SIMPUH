@@ -28,42 +28,48 @@ class AdminController extends Controller
     function dashboard(Request $r)
     {
         $tahun = (isset($_GET['tahun'])) ? $_GET['tahun'] : date('Y');
-        $jmlhPrgUngg = DB::table('tbl_program_unggulan')->count();
-        $semuaTargetSKPD = DB::table('tbl_kegiatan')->count();
-        $semuaRealisasiSKPD = DB::table('tbl_realisasi')->where('realisasi_tahun',$tahun)->sum('realisasi_pagu');
-        $TargetSKPD = DB::table('tbl_target')->where('target_tahun',$tahun)->sum('pagu');
-        $semuaKegiatanSKPD = DB::table('tbl_kegiatan')->count();
+        if(!isset($_GET['filter'])){
+            return redirect('admin/dashboard?filter=GRAFIK&tahun='.date('Y'));
+        }else{
 
-        // untuk mendapatkan persentase
-        $result_anggaran = array();
-        $skpd = DB::table('tbl_skpd')->join('tbl_target','tbl_target.id_skpd','tbl_skpd.id_skpd')->groupby('tbl_skpd.id_skpd')->get();
-        foreach ($skpd as $i => $v) {
-            $persen = getpersenanggaranfromskpd($v->id_skpd,$tahun);
-            $data_skpd = [
-                'nama_skpd'=>$v->nama_skpd,
-                'persenkinerja'=>$persen['persen'],
-                'anggaran'=>$persen['anggaran']
-            ];
-            array_push($result_anggaran,$data_skpd);
-            
+            $jmlhPrgUngg = DB::table('tbl_program_unggulan')->count();
+            $semuaTargetSKPD = DB::table('tbl_kegiatan')->count();
+            $semuaRealisasiSKPD = DB::table('tbl_realisasi')->where('realisasi_tahun',$tahun)->sum('realisasi_pagu');
+            $TargetSKPD = DB::table('tbl_target')->where('target_tahun',$tahun)->sum('pagu');
+            $semuaKegiatanSKPD = DB::table('tbl_kegiatan')->count();
+
+            // untuk mendapatkan persentase
+            $result_anggaran = array();
+            $skpd = DB::table('tbl_skpd')->join('tbl_target','tbl_target.id_skpd','tbl_skpd.id_skpd')->groupby('tbl_skpd.id_skpd')->get();
+            foreach ($skpd as $i => $v) {
+                $persen = getpersenanggaranfromskpd($v->id_skpd,$tahun);
+                $data_skpd = [
+                    'nama_skpd'=>$v->nama_skpd,
+                    'persenkinerja'=>$persen['persen'],
+                    'anggaran'=>$persen['anggaran']
+                ];
+                array_push($result_anggaran,$data_skpd);
+
+            }
+            usort($result_anggaran, function ($a, $b) {
+                return $b['persenkinerja'] - $a['persenkinerja'];
+            });
+            $anggaranpersen = $result_anggaran;
+
+            $periode = $tahun;
+            $tahun = DB::table('tbl_tahun')->get();
+
+            $program =  DB::table('tbl_program_unggulan')->get();
+            $th = (isset($_GET['tahun'])) ? $_GET['tahun']:date('Y');
+
+            if (Session::get('level') == 'skpd') {
+                return view('back.skpd.dashboard');
+            } else {
+                // dd($pembanding);
+                return view('back.index', compact('TargetSKPD','th','program','jmlhPrgUngg', 'semuaTargetSKPD', 'semuaRealisasiSKPD', 'semuaKegiatanSKPD', 'anggaranpersen', 'tahun', 'periode'));
+            }
         }
-        usort($result_anggaran, function ($a, $b) {
-            return $b['persenkinerja'] - $a['persenkinerja'];
-        });
-        $anggaranpersen = $result_anggaran;
-            
-        $periode = self::getTahun();
-        $tahun = DB::table('tbl_tahun')->get();
 
-        $program =  DB::table('tbl_program_unggulan')->get();
-        $th = (isset($_GET['tahun'])) ? $_GET['tahun']:date('Y');
-
-        if (Session::get('level') == 'skpd') {
-            return view('back.skpd.dashboard');
-        } else {
-            // dd($pembanding);
-            return view('back.index', compact('TargetSKPD','th','program','jmlhPrgUngg', 'semuaTargetSKPD', 'semuaRealisasiSKPD', 'semuaKegiatanSKPD', 'anggaranpersen', 'tahun', 'periode'));
-        }
     }
     function skpd()
     {
