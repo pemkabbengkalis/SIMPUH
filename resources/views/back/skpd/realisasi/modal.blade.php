@@ -57,7 +57,7 @@
                           <input type="hidden" name="id_realisasi[]" value="{{ $vk['tw1_id'] }}">
 
 
-                          <label>Dana Realisasi</label>
+                          <label>Realisasi Keuangan</label>
                           <input value="{{ $vk['tw1_rel_pagu'] }}" type="text" pattern="[0-9,]+" name="realisasi[]" class="form-control" required>
                          <input type="hidden" value="{{ isset($_GET['periode']) ? $_GET['periode'] : date('Y') }}" name="tahun[]">
 
@@ -70,7 +70,7 @@
                           <label>Kendala</label>
 
                           <Textarea class="form-control" required name="kendala[]">@if(!empty($vk['tw1_kendala'])){{ $vk['tw1_kendala'] }}@else @endif</Textarea>
-                          <label>tindakan</label>
+                          <label>Tindak Lanjut</label>
 
                           <Textarea class="form-control" required name="tindakan[]">@if(!empty($vk['tw1_tindakan'])){{ $vk['tw1_tindakan'] }}@else - @endif</Textarea>
                           {{-- <button name="submit"  value="true" style="width:100%;margin-top:10px;" type="submit" class="btn btn-success">Simpan</button>
@@ -93,7 +93,7 @@
                           </div>
                           </div>
                           <input type="hidden" name="id_realisasi[]" value="{{ $vk['tw2_id'] }}">
-                          <label>Dana Realisasi</label>
+                          <label>Realisasi Keuangan</label>
                           <input value="{{ $vk['tw2_rel_pagu'] }}" type="text" pattern="[0-9,]+" name="realisasi[]" class="form-control" required>
                           <input type="hidden" value="{{ isset($_GET['periode']) ? $_GET['periode'] : date('Y') }}" name="tahun[]">
 
@@ -106,7 +106,7 @@
                           <label>Kendala</label>
 
                           <Textarea class="form-control" required name="kendala[]">@if(!empty($vk['tw2_kendala'])) {{ $vk['tw2_kendala'] }} @else - @endif</Textarea>
-                          <label>tindakan</label>
+                          <label>Tindak Lanjut</label>
 
                           <Textarea class="form-control" required name="tindakan[]">@if(!empty($vk['tw2_tindakan'])){{ $vk['tw2_tindakan'] }}@else - @endif</Textarea>
                           {{-- <button style="width:100%;margin-top:10px;" type="submit" name="submit"  value="true" class="btn btn-success">Simpan</button>
@@ -130,7 +130,7 @@
                           </div>
                           </div>
                           <input type="hidden" name="id_realisasi[]" value="{{ $vk['tw3_id'] }}">
-                          <label>Dana Realisasi</label>
+                          <label>Realisasi Keuangan</label>
                           <input value="{{ $vk['tw3_rel_pagu'] }}" type="text" pattern="[0-9,]+" name="realisasi[]" class="form-control" required>
                           <input type="hidden" value="{{ isset($_GET['periode']) ? $_GET['periode'] : date('Y') }}" name="tahun[]">
 
@@ -143,7 +143,7 @@
                           <label>Kendala</label>
 
                           <Textarea class="form-control" required name="kendala[]">@if(!empty($vk['tw3_kendala'])) {{ $vk['tw3_kendala'] }} @else - @endif</Textarea>
-                          <label>tindakan</label>
+                          <label>Tindak Lanjut</label>
 
                           <Textarea class="form-control" required name="tindakan[]">@if(!empty($vk['tw3_tindakan'])) {{ $vk['tw3_tindakan'] }} @else - @endif</Textarea>
                           {{-- <button style="width:100%;margin-top:10px;" type="submit" name="submit"  value="true" class="btn btn-success">Simpan</button>
@@ -166,7 +166,7 @@
                           </div>
                           </div>
                           <input type="hidden" name="id_realisasi[]" value="{{ $vk['tw4_id'] }}">
-                          <label>Dana Realisasi</label>
+                          <label>Realisasi Keuangan</label>
                           <input value="{{ $vk['tw4_rel_pagu'] }}" type="text" pattern="[0-9,]+" name="realisasi[]" class="form-control" required>
                           <input type="hidden" value="{{ isset($_GET['periode']) ? $_GET['periode'] : date('Y') }}" name="tahun[]">
 
@@ -179,7 +179,7 @@
                           <label>Kendala</label>
 
                           <Textarea class="form-control" required name="kendala[]">@if(!empty($vk['tw4_kendala'])) {{ $vk['tw4_kendala'] }} @else - @endif</Textarea>
-                          <label>tindakan</label>
+                          <label>Tindak Lanjut</label>
 
                           <Textarea class="form-control" required name="tindakan[]">@if(!empty($vk['tw4_tindakan'])){{ $vk['tw4_tindakan'] }} @else - @endif</Textarea>
                           <hr>
@@ -187,13 +187,13 @@
                           <label>Realisasi Capaian Kinerja</label>
                           <div class="row" style="margin-left: 2px;margin-right: 2px;">
                             <input placeholder="Kuantitas" style="width:50%" type="text" name="kuantitas_rck" id="" class="form-control" required>
-                            <input placeholder="Dana Realisasi" style="width:50%" type="text" name="dana_rck" id="" class="form-control" required>
+                            <input placeholder="Realisasi Keuangan" style="width:50%" type="text" name="dana_rck" id="" class="form-control" required>
                           </div>
 
                           <label>Tingkat Capaian</label>
                           <div class="row" style="margin-left: 2px;margin-right: 2px;">
                             <input placeholder="Kuantitas" type="text" style="width:50%" name=kuantitas_tcp" id="" class="form-control" required>
-                            <input placeholder="Dana Realisasi" type="text" style="width:50%" name=dana_tcp" id="" class="form-control" required>
+                            <input placeholder="Realisasi Keuangan" type="text" style="width:50%" name=dana_tcp" id="" class="form-control" required>
                           </div>
 
                           endif -->
