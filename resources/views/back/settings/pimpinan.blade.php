@@ -21,9 +21,9 @@
                         <!-- /.card-header -->
                         <form method="post" action="{{URL::full()}}" enctype="multipart/form-data">
                           @csrf
-               
+
                         <div class="card-body">
-                   
+
                           <div class="row">
                             <div class="col-lg-12">
                               <div class="form-group">
@@ -34,13 +34,13 @@
                                 <label for="">NIP Pimpinan</label>
                                 <input type="text" class="form-control" name="nip" value="{{ $data->nip_pimpinan }}" placeholder="NIP Pimpinan">
                               </div>
-                            
+
                               <div class="form-group">
-                                <label for="">Tingkat / Golongan</label>
+                                <label for="">Pangkat / Golongan</label>
                                 <input type="text" class="form-control" name="tingkat" value="{{ $data->tingkat_pimpinan }}" placeholder="Tingkat / Golongan">
                               </div>
                             </div>
-                    
+
                             <div class="card-footer" style="background-color : white !important;">
                               <button name="submit" type="submit" class="btn btn-primary" value="true">Update</button>
                             </div>
