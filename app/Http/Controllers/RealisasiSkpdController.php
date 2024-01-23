@@ -8,6 +8,8 @@ use App\Models\Program;
 use App\Models\Target;
 use App\Models\Realisasi;
 use View;
+use Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 class RealisasiSkpdController extends Controller
 {
@@ -143,38 +145,81 @@ class RealisasiSkpdController extends Controller
   }
 
   function create(Request $req){
-    // if($req->submit){
-    //   return $this->rel->input($req);
-    // }else{
-    //   return back();
-    // }
-    foreach($req->realisasi as $key => $vs) {
-      // print 'Realisasi : '.$key.'<br>';
-      // print 'Id Target : '.$req->idtarget[$key].'<br>';
-      DB::table('tbl_realisasi')->insert([
-          'id_target'=>$req->idtarget[$key],
-          'id_skpd'=>Session::get('id_skpd'),
-          'realisasi_tahun'=>$req->tahun[$key],
-          'realisasi_bulan'=>$this->bulantahapan($req->tahapan[$key]),
-          'realisasi_pagu'=>$vs,
-          'realisasi_kuantitas'=>$req->kuantitas[$key],
-          'realisasi_satuan'=>$req->satuan[$key],
-          'triwulan'=>$req->tahapan[$key],
-          'keterangan'=>$req->keterangan[$key],
-          'kendala'=>$req->kendala[$key],
-          'tindakan'=>$req->tindakan[$key],
-      ]);
+    $validator = Validator::make($req->all(), [
+        'idtarget.*' => 'required',
+        'tahun.*' => 'required',
+        'tahapan.*' => 'required',
+        'realisasi.*' => 'required',
+        'kuantitas.*' => 'required',
+        'satuan.*' => 'required',
+        // Add other validation rules for your fields
+    ]);
+
+    if ($validator->fails()) {
+        return back()
+            ->withErrors($validator)
+            ->withInput();
     }
 
-    // if($req->has('kuantitas_rck') && $req->has('dana_rck') && $req->has('kuantitas_tcp') && $req->has('dana_tcp')){
-    //   $data = [
-    //     ''
-    //   ]
-    // }
-
-    return back()->with('success',' Data berhasil diupdate');
-
+    foreach($req->realisasi as $key => $vs) {
+    $check = DB::table('tbl_realisasi')->where('id_target',$req->idtarget[$key])
+                                ->where('id_skpd',Session::get('id_skpd'))
+                                ->where('realisasi_tahun',$req->tahun[$key])
+                                ->where('triwulan',$req->tahapan[$key])
+                                ->count();
+        if($check == 0){
+                DB::table('tbl_realisasi')->insert([
+                    'id_target'=>$req->idtarget[$key],
+                    'id_skpd'=>Session::get('id_skpd'),
+                    'realisasi_tahun'=>$req->tahun[$key],
+                    'realisasi_bulan'=>$this->bulantahapan($req->tahapan[$key]),
+                    'realisasi_pagu'=>$vs,
+                    'realisasi_kuantitas'=>$req->kuantitas[$key],
+                    'realisasi_satuan'=>$req->satuan[$key],
+                    'triwulan'=>$req->tahapan[$key],
+                    'keterangan'=>$req->keterangan[$key],
+                    'kendala'=>$req->kendala[$key],
+                    'tindakan'=>$req->tindakan[$key],
+                ]);
+            }
+    }
+    return back()->with('success','Data berhasil diupdate');
   }
+//   function create(Request $req){
+//     // if($req->submit){
+//     //   return $this->rel->input($req);
+//     // }else{
+//     //   return back();
+//     // }
+//     foreach($req->realisasi as $key => $vs) {
+//       // print 'Realisasi : '.$key.'<br>';
+//       // print 'Id Target : '.$req->idtarget[$key].'<br>';
+//       DB::table('tbl_realisasi')->insert([
+//           'id_target'=>$req->idtarget[$key],
+//           'id_skpd'=>Session::get('id_skpd'),
+//           'realisasi_tahun'=>$req->tahun[$key],
+//           'realisasi_bulan'=>$this->bulantahapan($req->tahapan[$key]),
+//           'realisasi_pagu'=>$vs,
+//           'realisasi_kuantitas'=>$req->kuantitas[$key],
+//           'realisasi_satuan'=>$req->satuan[$key],
+//           'triwulan'=>$req->tahapan[$key],
+//           'keterangan'=>$req->keterangan[$key],
+//           'kendala'=>$req->kendala[$key],
+//           'tindakan'=>$req->tindakan[$key],
+//       ]);
+//     }
+
+
+
+//     // if($req->has('kuantitas_rck') && $req->has('dana_rck') && $req->has('kuantitas_tcp') && $req->has('dana_tcp')){
+//     //   $data = [
+//     //     ''
+//     //   ]
+//     // }
+
+//     return back()->with('success',' Data berhasil diupdate');
+
+//   }
 
 
   function createganda(Request $req){
