@@ -35,7 +35,12 @@
         <div class="branding">
             <div class="container-fluid position-relative py-3">
                 <div class="logo-wrapper">
-	                <div class="site-logo"><a class="navbar-brand" href="/"><img class="logo-icon me-2" src="{{ asset('frontend') }}/assets/images/site-logo.png" alt="logo" style="width: 3%;"><span class="logo-text">SIMPUH</span></a></div>
+	                <div class="site-logo">
+						<a class="navbar-brand" href="/">
+							<img class="logo-icon me-2" src="{{ asset('frontend') }}/assets/images/site-logo.png" alt="logo" style="width: 3%;">
+							<img class="logo-icon me-2" src="{{ asset('frontend') }}/assets/images/bermasa-logo.png" alt="logo" style="width: 6%;">
+						</a>
+					</div>
                 </div><!--//docs-logo-wrapper-->
 
             </div><!--//container-->
@@ -107,10 +112,7 @@
 			    </div><!--col-->
 			    <div class="col-12 col-md-5 mb-5 align-self-center">
 				    <div class="book-cover-holder">
-					    <img id="optionalstuff" class="img-fluid book-cover" src="{{ asset('frontend') }}/assets/images/orang-simpuh.png" alt="book cover" >
-					    <div class="book-badge d-inline-block">
-								<img id="optionalstuff2" class="img-fluid book-cover" src="{{ asset('frontend') }}/assets/images/bermasa-logo.png" alt="book cover" >
-					    </div>
+					    <img id="optionalstuff" class="img-fluid book-cover" src="{{ asset('frontend') }}/assets/images/orang-simpuh-rev.png" alt="book cover" >
 				    </div><!--//book-cover-holder-->
 			    </div><!--col-->
 		    </div><!--//row-->
