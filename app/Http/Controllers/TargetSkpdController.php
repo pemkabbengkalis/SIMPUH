@@ -8,6 +8,7 @@ use App\Models\Program;
 use App\Models\Target;
 use App\Models\KuantitasLain;
 use View;
+use DB;
 class TargetSkpdController extends Controller
 {
   function __construct(Target $model,Program $prog){
@@ -45,9 +46,9 @@ class TargetSkpdController extends Controller
     if($req->submit){
     $kuantitaslain = $req->id_kuantitaslain;
     $i = 0;
-    
+
     foreach ($kuantitaslain as $key) {
-      
+
       // print $key."<br>";
       if($i == 0){
         $data = [
@@ -61,11 +62,11 @@ class TargetSkpdController extends Controller
         'jenis_target'=>'unggulan'];
         try {
           Target::where('id',$req->id)->update($data);
-          
+
         } catch (\Throwable $th) {
           // return redirect(modul('path'))->send()->with('danger',$th->getmessage());
         }
-        
+
       }else{
         $check = KuantitasLain::where('id_kuantitas_lain',$key)->count();
         if($check > 0){
@@ -76,10 +77,10 @@ class TargetSkpdController extends Controller
           ];
           try {
             KuantitasLain::where('id_kuantitas_lain',$key)->update($data);
-            
+
             // return redirect(modul('path'))->send()->with('success','Target Berhasil ditambah');
           } catch (\Throwable $th) {
-            
+
             // return redirect(modul('path'))->send()->with('danger',$th->getmessage());
           }
         }else{
@@ -90,17 +91,17 @@ class TargetSkpdController extends Controller
           ];
           try {
             KuantitasLain::insert($data);
-            
-            
+
+
           } catch (\Throwable $th) {
-            
+
           }
         }
-       
-      
+
+
       }
       $i++;
-     
+
     }
     return redirect(modul('path'))->send()->with('success','Target Berhasil diupdate');
   }
@@ -108,12 +109,15 @@ class TargetSkpdController extends Controller
 
   function delete($id){
     try {
-      Target::where('id',base64_decode($id))->delete();
-      return back()->with('success','Data berhasil dihapus');
+      $act = DB::table('tbl_target')->where('id',base64_decode($id))->delete();
+      if($act){
+        return back()->with('success','Data berhasil dihapus');
+      }
+
     } catch (\Throwable $th) {
       return back()->with('danger',$th->getmessage());
     }
-    
+
   }
   function deletekuantitaslain($id){
     try {
@@ -122,7 +126,7 @@ class TargetSkpdController extends Controller
     } catch (\Throwable $th) {
       return print $th->getmessage();
     }
-    
+
   }
 
 
@@ -130,10 +134,10 @@ class TargetSkpdController extends Controller
     if($req->submit){
       $kuantitas = $req->kuantitas;
       $i = 0;
-      $id=uniqid();
+      $id= hexdec(uniqid());
       foreach ($kuantitas as $key) {
-        
-       
+
+
         if($i == 0){
           $data = [
           'id'=>$id,
@@ -147,13 +151,13 @@ class TargetSkpdController extends Controller
           'jenis_target'=>'unggulan'];
           try {
             Target::insert($data);
-            
+
             // print $id;
-           
+
           } catch (\Throwable $th) {
             //return redirect(modul('path'))->send()->with('danger',$th->getmessage());
           }
-          
+
         }else{
          $data =[
             'kuantitas_lain'=>$key,
@@ -162,7 +166,7 @@ class TargetSkpdController extends Controller
           ];
           try {
             KuantitasLain::insert($data);
-            
+
           } catch (\Throwable $th) {
             return redirect(modul('path'))->send()->with('danger',$th->getmessage());
           }
@@ -172,7 +176,7 @@ class TargetSkpdController extends Controller
       // print $id;
       return redirect(modul('path'))->send()->with('success','Target Berhasil ditambah');
     }
-    
+
   }
 
 }

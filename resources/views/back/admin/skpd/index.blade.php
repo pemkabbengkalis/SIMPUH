@@ -36,8 +36,9 @@
                       <td>{{$loop->iteration}}</td>
                       <td>{{ $row->nama_skpd }}</td>
                       <td>{{ $row->type }}</td>
-                      <td>
+                      <td style="width:15%">
                           <center>
+                            <a href="{{url(modul('path').'/edit/'.en($row->id_skpd))}}" class="btn btn-warning btn-xs text-white"><i class="fas fa-sign"></i></a>
                             <a href="{{url(modul('path').'/edit/'.en($row->id_skpd))}}" class="btn btn-warning btn-xs text-white"><i class="fas fa-edit"></i></a>
                             <a href="{{url(modul('path').'/delete/'.en($row->id_skpd))}}" class="btn btn-danger btn-xs"><i class="fa fa-trash" aria-hidden="true" onclick="return confirm('Yakin akan menghapus data ini?')"></i></a>
                           </center>
