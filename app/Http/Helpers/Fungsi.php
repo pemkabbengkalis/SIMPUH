@@ -518,7 +518,7 @@ function get_kegiatanone($id,$tahun,$idskpd,$idkegiatan,$idsub){
         'tw4_keterangan'=>(!empty($tw4->keterangan)) ? $tw4->keterangan : '',
         'tw4_kendala'=>(!empty($tw4->kendala)) ? $tw4->kendala : '',
         'tw4_tindakan'=>(!empty($tw4->tindakan))? $tw4->kendala : '',
-        'tw4_rel_fisik'=>(!empty($tw4->realisasifisik))? $tw4->rrealisasifisik:0,
+        'tw4_rel_fisik'=>(!empty($tw4->realisasifisik))? $tw4->realisasifisik:0,
         'tw1_id'=>(!empty($tw1->id_realisasi))? $tw1->id_realisasi : null,
         'tw2_id'=>(!empty($tw2->id_realisasi))? $tw2->id_realisasi : null,
         'tw3_id'=>(!empty($tw3->id_realisasi))? $tw3->id_realisasi : null,
