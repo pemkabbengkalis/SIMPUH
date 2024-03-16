@@ -145,22 +145,7 @@ class RealisasiSkpdController extends Controller
   }
 
   function create(Request $req){
-    $validator = Validator::make($req->all(), [
-        'idtarget.*' => 'required',
-        'tahun.*' => 'required',
-        'tahapan.*' => 'required',
-        'realisasi.*' => 'required',
-        'kuantitas.*' => 'required',
-        'satuan.*' => 'required',
-        // Add other validation rules for your fields
-    ]);
-
-    if ($validator->fails()) {
-        return back()
-            ->withErrors($validator)
-            ->withInput();
-    }
-
+    
     foreach($req->realisasi as $key => $vs) {
     $check = DB::table('tbl_realisasi')->where('id_target',$req->idtarget[$key])
                                 ->where('id_skpd',Session::get('id_skpd'))

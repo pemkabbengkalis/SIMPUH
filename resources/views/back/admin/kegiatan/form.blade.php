@@ -73,8 +73,9 @@
                           <label for="">Kode Sub Kegiatan & Nama Sub Kegiatan</label>
                           <select  name="kode_sub_kegiatan" class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" ></select>
                         </div>
-                        <input type="hidden" name="idkegiatan" value="<?php echo (!empty($edit)) ? $edit->id_kegiatan : 'null'; ?>">
-                        <input type="hidden" name="idsubkegiatan" value="<?php echo (!empty($edit)) ? $edit->id_sub_kegiatan : 'null'; ?>">
+                        <input type="hidden" name="idkegiatan" value="<?php echo (!empty($edit)) ? $edit->id_kegiatan : null; ?>">
+                        <input type="hidden" name="idsubkegiatan" value="<?php echo (!empty($edit)) ? $edit->id_sub_kegiatan : null; ?>">
+                        <input type="hidden" name="idskpdold" value="<?php echo (!empty($edit)) ? $edit->id_skpd : null; ?>">
 
                         </div>
                         <div class="card-footer">
@@ -139,6 +140,7 @@ function get_kegiatans(id_program) {
                         $('[name="kode_kegiatan"]').html(obj);
                         //AIZ.plugins.bootstrapSelect('refresh');
                         var selectedValue = $('[name="kode_kegiatan"]').val();
+                        //alert(id_kegiatan);
                         get_sub_kegiatans(selectedValue);
 
                     }

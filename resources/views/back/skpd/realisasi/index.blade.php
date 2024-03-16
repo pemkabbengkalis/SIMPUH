@@ -116,20 +116,11 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body" style="overflow:auto">
-                            <style>
-                                td {
-                                    padding: 5px
-                                }
-
-                                .bold {
-                                    font-weight: bold
-                                }
-                            </style>
-                            <table class="table-bordered table-striped table-hover"
-                                style="width:100%;font-size:small">
+                            
+                            <table>
                                 <thead>
                                     <tr>
-                                        <th rowspan="3">NO</th>
+                                        <th rowspan="3">NOs</th>
                                         <th rowspan="3" style="vertical-align:middle" class="text-center">Progarm
                                             Unggulan</th>
                                         <th rowspan="3" style="vertical-align:middle" class="text-center">Program /

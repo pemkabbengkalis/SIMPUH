@@ -67,8 +67,10 @@ class KegiatanController extends Controller
                   $html .= '<option value="' . $row->nama_ref . '" '.$selected.'>' . $row->nama_ref . '</option>';
                 }
                 }else{
+                  if($r->id_program==$arr){
                   $temKodeKegiatan = explode(' ',$row->nama_ref);
                   $html .= '<option value="' . $row->nama_ref . '">' . $row->nama_ref . '</option>';
+                  }
                 }
 
 
@@ -99,7 +101,9 @@ class KegiatanController extends Controller
                     $html .= '<option value="' . $row->nama_ref . '" '.$selected.'>' . $row->nama_ref . '</option>';
                     }
                 }else{
+                  if($idkegiatan[0]==$arr){
                     $html .= '<option value="' . $row->nama_ref . '">' . $row->nama_ref . '</option>';
+                  }
                 }
 
 

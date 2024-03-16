@@ -28,7 +28,8 @@
                       <th >Kode Program</th>
                       <th>Nama Program</th>
                       <th >Kode Kegiatan</th>
-                      <th>Nama Kegiatan</th>
+                      <th>Kegiatan</th>
+                      <th>Sub Kegiatan</th>
                       <th>SKPD Terkait</th>
                       <th style="width:100px">Aksi</th>
                     </tr>
@@ -41,6 +42,7 @@
                       <td>{{$row->nama_program}}</td>
                       <td>{{$row->kode_kegiatan}}</td>
                       <td>{{$row->nama_kegiatan}}</td>
+                      <td>{{$row->nama_sub_kegiatan}}</td>
                       <td>{{$row->nama_skpd}}</td>
                       <td>
                           <center>

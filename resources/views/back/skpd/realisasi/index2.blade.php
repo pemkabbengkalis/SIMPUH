@@ -6,17 +6,6 @@
 <!-- /.content-header -->
 <style>
 
-thead{
-    display: block;
-}
-
-tbody {
-
-  display: block;
-  height: 600px; /* Sesuaikan tinggi sesuai kebutuhan */
-  overflow: auto;
-}
-
 
 
 
@@ -87,7 +76,7 @@ tbody {
             var tahun = document.getElementById('thprint').value;
             var idskpd = {{ Session::get('id_skpd') }};
             var trw = document.getElementById('trw').value;
-            window.open('https://simpuh.bengkaliskab.go.id/cetak_realisasi/'+idskpd+'/'+tahun+'/'+trw,'popup','width=600,height=600'); return false;
+            window.open('/cetak_realisasi/'+idskpd+'/'+tahun+'/'+trw,'popup','width=600,height=600'); return false;
         };
 
     </script>
@@ -132,15 +121,6 @@ tbody {
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body" style="overflow:auto">
-                            <style>
-                                td {
-                                    padding: 5px
-                                }
-
-                                .bold {
-                                    font-weight: bold
-                                }
-                            </style>
                             <table class="table-bordered table-striped table-hover"
                                 style="width:100%;font-size:small">
                                 <thead>
@@ -301,21 +281,21 @@ tbody {
                                         <td></td>
                                         <td><p style="font-weight: 400;
                                             color: rgb(39, 39, 39);">Sub Kegiatan   : {{ $vsub->nama_sub_kegiatan }}</p></td>
-                                        <td>{{ $vk['kuantitas'].' '.$vk['satuan'] }} </td>
-                                        <td>{{'Rp '.number_format( $vk['pagu']) }}</td>
+                                        <td align="center">{{ $vk['kuantitas'].' '.$vk['satuan'] }} </td>
+                                        <td align="center">{{'Rp '.number_format( $vk['pagu']) }}</td>
                                         <td>{{ $vk['tw1_kuantitas'].' '.$vk['tw1_rel_satuan'] }}</td>
                                         <td align="right" class="bold">{{ 'Rp '.number_format($vk['tw1_rel_pagu']) }}</td>
-                                        <td>{{ $vk['tw2_kuantitas'].' '.$vk['tw2_rel_satuan'] }}</td>
+                                        <td align="center">{{ $vk['tw2_kuantitas'].' '.$vk['tw2_rel_satuan'] }}</td>
                                         <td align="right" class="bold">{{ 'Rp '.number_format($vk['tw2_rel_pagu']) }}</td>
-                                        <td>{{ $vk['tw3_kuantitas'].' '.$vk['tw3_rel_satuan'] }}</td>
+                                        <td align="center">{{ $vk['tw3_kuantitas'].' '.$vk['tw3_rel_satuan'] }}</td>
                                         <td align="right" class="bold">{{ 'Rp '.number_format($vk['tw3_rel_pagu']) }}</td>
-                                        <td>{{ $vk['tw4_kuantitas'].' '.$vk['tw4_rel_satuan'] }}</td>
+                                        <td align="center">{{ $vk['tw4_kuantitas'].' '.$vk['tw4_rel_satuan'] }}</td>
                                         <td align="right" class="bold">{{ 'Rp '.number_format($vk['tw4_rel_pagu']) }}</td>
-                                        <td>{{ $vk['totkuantitas'] }}</td>
+                                        <td align="center">{{ $vk['totkuantitas'] }}</td>
                                         <td align="right"><b>{{ 'Rp '.number_format($vk['totpagu']) }}</b></td>
-                                        <td>@if(round($vk['tcp_kuantitas'],2) > 100) 100 @else {{ round($vk['tcp_kuantitas'],2) }} @endif</td>
-                                        <td>@if(round($vk['tcp_pagu'],2)) 100 @else {{ round($vk['tcp_pagu'],2) }} @endif</td>
-                                        <td><i  data-toggle="modal" data-target="#myModal{{ $vk['id'] }}" style="color:rgb(9, 127, 140)" class="fa fa-edit"></i>
+                                        <td align="center">@if(round($vk['tcp_kuantitas'],2) > 100) 100 @else {{ round($vk['tcp_kuantitas'],2) }} @endif</td>
+                                        <td align="center">@if(round($vk['tcp_pagu'],2)) 100 @else {{ round($vk['tcp_pagu'],2) }} @endif</td>
+                                        <td align="center"><i  data-toggle="modal" data-target="#myModal{{ $vk['id'] }}" style="color:rgb(9, 127, 140)" class="fa fa-edit"></i>
                                         </td>
                                     </tr>
                                     @include('back.skpd.realisasi.modal')
@@ -337,9 +317,9 @@ tbody {
                                     </tr>
                                     <tr>
                                         <td colspan="15" align="right" class="bold">Prediket Kinerja</td>
-                                        <td {!! colorPrediket(number_format($kuantitaskeg/$countkegiatan)) !!} align="center" class="bold"> {{ prediket(number_format($kuantitaskeg/$countkegiatan)) }}</td>
-                                        <td {!! colorPrediket(number_format($realisasikeg/$countkegiatan)) !!}  align="center" class="bold">
-                                            {{ prediket(number_format($realisasikeg/$countkegiatan)) }}
+                                        <td {!! colorPrediket($kuantitaskeg/$countkegiatan) !!} align="center" class="bold"> {{ prediket($kuantitaskeg/$countkegiatan) }}</td>
+                                        <td {!! colorPrediket($realisasikeg/$countkegiatan) !!}  align="center" class="bold">
+                                            {{ prediket($realisasikeg/$countkegiatan) }}
                                         </td>
                                         <td></td>
                                     </tr>
@@ -359,9 +339,9 @@ tbody {
                                     </tr>
                                     <tr>
                                         <td colspan="15" align="right" class="bold">Prediket Kinerja</td>
-                                        <td {!! colorPrediket(number_format($kuantitasprog/$countprogram)) !!} align="center" class="bold"> {{ prediket(number_format($kuantitasprog/$countprogram)) }}</td>
-                                        <td {!! colorPrediket(number_format($realisasiprog/$countprogram)) !!}  align="center" class="bold">
-                                            {{ prediket(number_format($realisasiprog/$countprogram)) }}
+                                        <td {!! colorPrediket($kuantitasprog/$countprogram) !!} align="center" class="bold"> {{ prediket($kuantitasprog/$countprogram) }}</td>
+                                        <td {!! colorPrediket($realisasiprog/$countprogram) !!}  align="center" class="bold">
+                                            {{ prediket($realisasiprog/$countprogram) }}
                                         </td>
                                         <td></td>
                                     </tr>

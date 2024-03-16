@@ -6,6 +6,7 @@ use Redirect;
 use App\Models\JenisSatuan;
 use App\Models\Program;
 use App\Models\Target;
+use App\Models\Realisasi;
 use App\Models\KuantitasLain;
 use View;
 use DB;
@@ -109,10 +110,19 @@ class TargetSkpdController extends Controller
 
   function delete($id){
     try {
-      $act = DB::table('tbl_target')->where('id',base64_decode($id))->delete();
-      if($act){
-        return back()->with('success','Data berhasil dihapus');
+      /**
+       * cek realisasi target berdasarkan target yang akan dihapus
+       */
+      $checkRealisasi = Realisasi::where('id_target',base64_decode($id))->count();
+      if($checkRealisasi > 0){
+        return back()->with('danger','Target ini sudah dilakukan realisasi');
+      }else{
+        $act = DB::table('tbl_target')->where('id',base64_decode($id))->delete();
+        if($act){
+          return back()->with('success','Data berhasil dihapus');
+        }
       }
+      
 
     } catch (\Throwable $th) {
       return back()->with('danger',$th->getmessage());
