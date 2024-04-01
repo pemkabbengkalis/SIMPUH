@@ -60,6 +60,20 @@ function __construct(){
       );*/
 
       add_module(
+        [
+          "sort" => 3,
+          "nama_menu" => "Data Kegiatan",
+          "path"  => "skpd/kegiatan",
+          "icon"  => "fa-chart-line",
+          "function"  =>"kegiatanskpd",
+          "controller"  =>"KegiatanController",
+          "level"  => "skpd",
+          "crud" => ['create','update','delete','edit','deletekuantitaslain','getsubkegiatans','getsubsubkegiatans'],
+          "child"  => null,
+        ]
+      );
+
+      add_module(
     [
       "sort" => 3,
       "nama_menu" => "Target",

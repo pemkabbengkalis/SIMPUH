@@ -32,14 +32,22 @@
                                 <label>Kuantitas Target</label><br>
                                 <i style="color:grey">*Jika kuantitas target berbeda anda dapat menambahkan dengan mengklik icon tambah</i>
                                 <div class="tambah-target">
+                                @php
+                                    $target = explode(',',$edit->kuantitas);
+                                    $satuan = explode(',',$edit->satuan);
+                                @endphp
+                                @foreach($target as $i => $t)
                                 <div class="row" style="margin-left:3px;margin-right:3px;">
                                     <input type="hidden" name="id_kuantitaslain[]" value="0">
-                                    <input type="number" value="{{ $edit->kuantitas }}" style="width:40%" class="form-control" name="kuantitase[]" required placeholder="Jumlah Kuantitas">
-                                    <input type="text" value="{{ $edit->satuan }}" style="width:40%; margin-left:5px" class="form-control" name="satuane[]" placeholder="Satuan Kuantitas">
+                                    <input type="number" value="{{ $t }}" style="width:40%" class="form-control" name="kuantitase[]" required placeholder="Jumlah Kuantitas">
+                                    <input type="text" value="{{ $satuan[$i] }}" style="width:40%; margin-left:5px" class="form-control" name="satuane[]" placeholder="Satuan Kuantitas">
+                                    @if($i==0)
                                     <a  id="add_form_field" style="width:10%;margin-left:5px" class="btn btn-primary"><i class="fa fa-plus"></i></a>
-                                    
+                                    @endif
                                 </div>
-                                {{ checkkuantitaslain($edit->id) }}
+                                @endforeach
+                                
+                                
                             
                                 
                                 

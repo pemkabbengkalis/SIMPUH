@@ -3,6 +3,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\SubKegiatan;
 use DB;
+use Session;
 class Kegiatan extends Model
 {
   protected $table = 'tbl_kegiatan';
@@ -11,7 +12,11 @@ function __construct(){
   $this->modul = 'Kegiatan';
 }
 function listjoin(){
-  return self::join('tbl_program','tbl_program.id_program','tbl_kegiatan.id_program')->join('tbl_skpd','tbl_skpd.id_skpd','tbl_kegiatan.id_skpd')->join('tbl_sub_kegiatan','tbl_sub_kegiatan.id_kegiatan','tbl_kegiatan.id_kegiatan')->get();
+   if('admin' == Session::get('level')){
+      return self::join('tbl_program','tbl_program.id_program','tbl_kegiatan.id_program')->join('tbl_skpd','tbl_skpd.id_skpd','tbl_kegiatan.id_skpd')->join('tbl_sub_kegiatan','tbl_sub_kegiatan.id_kegiatan','tbl_kegiatan.id_kegiatan')->get();
+   }else{
+    return self::where('tbl_kegiatan.id_skpd',Session::get('id_skpd'))->join('tbl_program','tbl_program.id_program','tbl_kegiatan.id_program')->join('tbl_skpd','tbl_skpd.id_skpd','tbl_kegiatan.id_skpd')->join('tbl_sub_kegiatan','tbl_sub_kegiatan.id_kegiatan','tbl_kegiatan.id_kegiatan')->get();
+   }
 }
 function whereid($id){
   $q = self::where('tbl_kegiatan.id_kegiatan',$id)->join('tbl_program','tbl_program.id_program','tbl_kegiatan.id_program')->join('tbl_sub_kegiatan','tbl_sub_kegiatan.id_kegiatan','tbl_kegiatan.id_kegiatan');

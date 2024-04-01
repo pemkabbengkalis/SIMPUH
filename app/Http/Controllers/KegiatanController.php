@@ -23,11 +23,17 @@ class KegiatanController extends Controller
   });
     $this->model = $model;
     $this->view = 'back.admin.kegiatan.';
+    $this->viewSkpd = 'back.skpd.kegiatan.';
     View::share(['program'=>$ref,'skpd'=>$skpd]);
   }
   function kegiatan(){
     return view($this->view.'index',['data'=>$this->model]);
   }
+
+  function kegiatanskpd(){
+    return view($this->viewSkpd.'index',['data'=>$this->model]);
+  }
+
   function edit(Request $req, $id){
     $edit = $this->model->whereid(de($id))->first();
     if($req->submit){
@@ -44,7 +50,11 @@ class KegiatanController extends Controller
     if($req->submit){
       $this->model->input($req);
     }
-  return view($this->view.'form');
+    if('admin' == Session::get('level')){
+     return view($this->view.'form');
+    }else{
+      return view($this->viewSkpd.'form');
+    }
   }
 
   function getsubkegiatans(Request $r){

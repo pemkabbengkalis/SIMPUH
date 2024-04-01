@@ -28,12 +28,12 @@
                         <div class="card-body">
 
                         <div class="form-group">
-                          <label for="">Kode  Program</label>
-                          <input type="text" class="form-control" name="kode_program" value="{{$edit->kode_program ?? null}}" placeholder="Kode Program" required>
+                          <label for="">Kode Kegiatan</label>
+                          <input type="text" class="form-control" name="kode_program" value="{{($edit['kode']) ?? null}}" placeholder="Kode Kegiatan" required>
                         </div>
                         <div class="form-group">
-                          <label for="">Nama  Program</label>
-                          <input type="text" class="form-control" name="nama_program" value="{{$edit->nama_program ?? null}}" placeholder="Nama Program" required>
+                          <label for="">Nama Kegiatan</label>
+                          <input type="text" class="form-control" name="nama_program" value="{{$edit['nama_keg'] ?? null}}" placeholder="Nama Kegiatan" required>
                         </div>
                         @if(!empty($data))
                          <div class="form-group">
@@ -41,7 +41,7 @@
                           <select name="unggulan" class="form-control">
                             <option value="">--Pilih Program Unggulan--</option>
                             @foreach($data as $i => $v)
-                            <option value="{{ $v->id_program_unggulan }}" @if(isset($edit)) @if($v->id_program_unggulan==$edit->id_program_unggulan) selected @endif @endif>{{ $v->nama_program_unggulan }}</option>
+                            <option value="{{ $v->id_program_unggulan }}" @if($v->id_program_unggulan==$edit->id_program_unggulan) selected @endif>{{ $v->nama_program_unggulan }}</option>
                             @endforeach
                           </select>
                         </div>

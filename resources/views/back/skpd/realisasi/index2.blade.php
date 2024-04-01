@@ -205,22 +205,30 @@
                                      @endphp
                                      @for($no=0;$no < $countprogram; $no++)
                                      <!--Program-->
+                                     @php
+                                     $paguProgram = TotalKuantitasByProgram($program[$no]->id_program,(isset($_GET['periode'])) ? $_GET['periode'] : date('Y'),Session::get('id_skpd'));
+                                     $realisasiProgram = TotalRealisasiByProgram($program[$no]->id_program,(isset($_GET['periode'])) ? $_GET['periode'] : date('Y'),Session::get('id_skpd'));
+                                     $realisasiProgramTw1 = TotalRealisasiByProgramTW($program[$no]->id_program,(isset($_GET['periode'])) ? $_GET['periode'] : date('Y'),Session::get('id_skpd'),'I');
+                                     $realisasiProgramTw2 = TotalRealisasiByProgramTW($program[$no]->id_program,(isset($_GET['periode'])) ? $_GET['periode'] : date('Y'),Session::get('id_skpd'),'II');
+                                     $realisasiProgramTw3 = TotalRealisasiByProgramTW($program[$no]->id_program,(isset($_GET['periode'])) ? $_GET['periode'] : date('Y'),Session::get('id_skpd'),'III');
+                                     $realisasiProgramTw4 = TotalRealisasiByProgramTW($program[$no]->id_program,(isset($_GET['periode'])) ? $_GET['periode'] : date('Y'),Session::get('id_skpd'),'IV');
+                                     @endphp
                                     <tr>
                                         <td>{{ $noungulan++ }}</td>
                                         <td>{{ $v->nama_program_unggulan }}</td>
                                         <td><b>{{ $program[$no]->nama_program }}</b></td>
                                         <td></td>
+                                        <td align="center"><b>Rp {{$paguProgram }}</b></td>
                                         <td></td>
+                                        <td align="center"><b>Rp {{$realisasiProgramTw1}}</b></td>
                                         <td></td>
+                                        <td align="center"><b>Rp {{$realisasiProgramTw2}}</b></td>
                                         <td></td>
+                                        <td align="center"><b>Rp {{$realisasiProgramTw3}}</b></td>
                                         <td></td>
+                                        <td align="center"><b>Rp {{$realisasiProgramTw4}}</b></td>
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td align="center"><b>Rp {{$realisasiProgram}}</b></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -228,18 +236,23 @@
 
                                     <!--Kegiatan-->
                                     @php
-                                    $kegiatan = getDataKegiatanByIdProgram($program[$no]->id_program);
+                                    $kegiatan = getDataKegiatanByIdProgram($program[$no]->id_program,Session::get('id_skpd'),(isset($_GET['periode'])) ? $_GET['periode'] : date('Y'));
                                     $countkegiatan = count($kegiatan);
                                     $realisasikeg = 0 ;
                                     $kuantitaskeg = 0 ;
                                     @endphp
                                     @foreach($kegiatan as $ik => $vk)
+                                    @php
+                                     $paguKegiatan = TotalKuantitasByKegiatan($vk->id_kegiatan,(isset($_GET['periode'])) ? $_GET['periode'] : date('Y'),Session::get('id_skpd'));
+                                     $realisasiKegiatan = TotalRealisasiByKegiatan($vk->id_kegiatan,(isset($_GET['periode'])) ? $_GET['periode'] : date('Y'),Session::get('id_skpd'));
+                                    @endphp
                                     <tr>
                                         <td></td>
                                         <td></td>
                                         <td><p style="font-weight: 600;
                                             color: black;">Kegiatan : {{ $vk->nama_kegiatan }}</p></td>
                                         <td></td>
+                                        <td align="center"><b>Rp {{$paguKegiatan}}</b></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -249,15 +262,14 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td align="center"><b>Rp {{$realisasiKegiatan}}</b></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                     </tr>
                                     <!--Subkegiatan-->
                                     @php
-                                        $subkegiatan = getDataSubKegiatanFromIdKegiatan($vk->id_kegiatan);
+                                        $subkegiatan = getDataSubKegiatanFromIdKegiatan($vk->id_kegiatan,(isset($_GET['periode'])) ? $_GET['periode'] : date('Y'));
                                         $countsubkegiatan = count($subkegiatan);
                                         $sumtcpkuantitas = 0 ;
                                         $jumtcpkuantitas = 0 ;
@@ -268,7 +280,7 @@
                                     @foreach($subkegiatan as $is => $vsub)
                                     @php
 
-                                    $vk = get_kegiatanone($program[$no]->id_program,$tahuncatch,Session('id_skpd'),$vk->id_kegiatan,$vsub->id_sub_kegiatan);
+                                    $vk = get_kegiatanone($program[$no]->id_program,(isset($_GET['periode'])) ? $_GET['periode'] : date('Y'),Session('id_skpd'),$vk->id_kegiatan,$vsub->id_sub_kegiatan);
                                     $sumtcpkuantitas += $vk['tcp_kuantitas'];
                                     $jumtcpkuantitas ++;
                                     $sumcprp += $vk['tcp_pagu'];
@@ -283,35 +295,36 @@
                                             color: rgb(39, 39, 39);">Sub Kegiatan   : {{ $vsub->nama_sub_kegiatan }}</p></td>
                                         <td align="center">{{ $vk['kuantitas'].' '.$vk['satuan'] }} </td>
                                         <td align="center">{{'Rp '.number_format( $vk['pagu']) }}</td>
-                                        <td>{{ $vk['tw1_kuantitas'].' '.$vk['tw1_rel_satuan'] }}</td>
-                                        <td align="right" class="bold">{{ 'Rp '.number_format($vk['tw1_rel_pagu']) }}</td>
-                                        <td align="center">{{ $vk['tw2_kuantitas'].' '.$vk['tw2_rel_satuan'] }}</td>
-                                        <td align="right" class="bold">{{ 'Rp '.number_format($vk['tw2_rel_pagu']) }}</td>
-                                        <td align="center">{{ $vk['tw3_kuantitas'].' '.$vk['tw3_rel_satuan'] }}</td>
-                                        <td align="right" class="bold">{{ 'Rp '.number_format($vk['tw3_rel_pagu']) }}</td>
-                                        <td align="center">{{ $vk['tw4_kuantitas'].' '.$vk['tw4_rel_satuan'] }}</td>
-                                        <td align="right" class="bold">{{ 'Rp '.number_format($vk['tw4_rel_pagu']) }}</td>
+                                        <td>{{ $vk['tw1_kuantitas'] }}</td>
+                                        <td align="right" class="bold">{{ $vk['tw1_rel_pagu'] != 0 ? 'Rp '.number_format($vk['tw1_rel_pagu']) : '-' }}</td>
+                                        <td align="center">{{ $vk['tw2_kuantitas'] != 0 ? $vk['tw2_kuantitas'] : '-' }}</td>
+                                        <td align="right" class="bold">{{ $vk['tw2_rel_pagu'] != 0 ? 'Rp '.number_format($vk['tw2_rel_pagu']) : '-' }}</td>
+                                        <td align="center">{{ $vk['tw3_kuantitas'] != 0 ? $vk['tw3_kuantitas'] : '-' }}</td>
+                                        <td align="right" class="bold">{{ $vk['tw3_rel_pagu'] != 0 ? 'Rp '.number_format($vk['tw3_rel_pagu']) : '-' }}</td>
+                                        <td align="center">{{ $vk['tw4_kuantitas'] != 0 ? $vk['tw4_kuantitas'] : '-' }}</td>
+                                        <td align="right" class="bold">{{ $vk['tw4_rel_pagu'] != 0 ? 'Rp '.number_format($vk['tw4_rel_pagu']) : '-' }}</td>
+
                                         <td align="center">{{ $vk['totkuantitas'] }}</td>
                                         <td align="right"><b>{{ 'Rp '.number_format($vk['totpagu']) }}</b></td>
-                                        <td align="center">@if(round($vk['tcp_kuantitas'],2) > 100) 100 @else {{ round($vk['tcp_kuantitas'],2) }} @endif</td>
-                                        <td align="center">@if(round($vk['tcp_pagu'],2)) 100 @else {{ round($vk['tcp_pagu'],2) }} @endif</td>
+                                        <td align="center">@if(number_format($vk['tcp_kuantitas'],2) >= 100) 100 @else {{ number_format($vk['tcp_kuantitas'],2) }} @endif</td>
+                                        <td align="center">@if(number_format($vk['tcp_pagu'],2) >= 100) 100 @else {{ number_format($vk['tcp_pagu'],2) }} @endif</td>
                                         <td align="center"><i  data-toggle="modal" data-target="#myModal{{ $vk['id'] }}" style="color:rgb(9, 127, 140)" class="fa fa-edit"></i>
                                         </td>
                                     </tr>
                                     @include('back.skpd.realisasi.modal')
                                     @endforeach
                                     @php
-                                    $kuantitaskeg += round($sumtcpkuantitas/$jumtcpkuantitas,2);
-                                    $realisasikeg += round($sumcprp/$jumcprp,2);
+                                    $kuantitaskeg += number_format($sumtcpkuantitas/$jumtcpkuantitas,2);
+                                    $realisasikeg += number_format($sumcprp/$jumcprp,2);
                                     @endphp
                                     <!--endsubkegiatan-->
                                     @endforeach
                                     <tr>
                                         <td colspan="15" align="right" class="bold">Total Rata-rata Capaian Kinerja
                                             Perprogram (%)</td>
-                                        <td align="center" class="bold"> @if(number_format($kuantitaskeg/$countkegiatan) > 100) 100 @else {{ number_format($kuantitaskeg/$countkegiatan) }} @endif</td>
+                                        <td align="center" class="bold"> @if(number_format($kuantitaskeg/$countkegiatan,2) >= 100 ) 100 @else {{ number_format($kuantitaskeg/$countkegiatan,2) }} @endif</td>
                                         <td align="center" class="bold">
-                                            @if(number_format($realisasikeg/$countkegiatan) > 100) 100 @else {{ number_format($realisasikeg/$countkegiatan) }} @endif
+                                            @if(number_format($realisasikeg/$countkegiatan,2) >= 100) 100 @else {{ number_format($realisasikeg/$countkegiatan,2) }} @endif
                                         </td>
                                         <td></td>
                                     </tr>
@@ -324,8 +337,8 @@
                                         <td></td>
                                     </tr>
                                     @php
-                                    $kuantitasprog += round($kuantitaskeg/$countkegiatan,2);
-                                    $realisasiprog += round($realisasikeg/$countkegiatan,2);
+                                    $kuantitasprog += number_format($kuantitaskeg/$countkegiatan,2);
+                                    $realisasiprog += number_format($realisasikeg/$countkegiatan,2);
                                     @endphp
                                     @endfor
                                     <tr>

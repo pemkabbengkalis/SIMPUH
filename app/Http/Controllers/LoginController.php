@@ -8,6 +8,7 @@ class LoginController
 {
 function loginform(Request $req){
   if($req->username && $req->password){
+    if($_POST['g-recaptcha-response'] != null){
     // if($_POST['g-recaptcha-response'] != null){
     //$captcha=$_POST['g-recaptcha-response'];
 
