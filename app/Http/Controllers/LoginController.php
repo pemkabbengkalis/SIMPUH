@@ -23,9 +23,9 @@ function loginform(Request $req){
         else {
           return back()->with('danger','USERNAME DAN PASSWORD SALAH');
         }
-    // }else{
-    //     return back()->with('danger','Chapta Harus dipilih');
-    // }
+    }else{
+        return back()->with('danger','Chapta Harus dipilih');
+    }
     
   }
   else {
