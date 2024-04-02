@@ -28,12 +28,7 @@
                           @csrf
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="">SKPD TERKAIT</label>
-                                <select name="id_skpd" class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                                    @foreach($skpd->get() as $index => $v)
-                                      <option {{!empty($edit) && $v->id_skpd==$edit->id_skpd ? 'selected':''}} value="{{ $v->id_skpd }}">{{ $v->nama_skpd }}</option>
-                                    @endforeach
-                                </select>
+                                <input class="form-control" type="hidden" name="id_skpd" value="{{Session::get('id_skpd')}}">
                               </div>
                           <div class="form-group">
                             <label for="">Nama Program</label>
@@ -128,7 +123,7 @@ function get_kegiatans(id_program) {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: "{{url('admin/kegiatan/getsubkegiatans')}}",
+                url: "{{url('skpd/kegiatan/getsubkegiatans')}}",
                 type: 'POST',
                 data: {
                     id_kegiatan : id_kegiatan,
@@ -155,7 +150,7 @@ function get_kegiatans(id_program) {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: "{{url('admin/kegiatan/getsubsubkegiatans')}}",
+                url: "{{url('skpd/kegiatan/getsubsubkegiatans')}}",
                 type: 'POST',
                 data: {
                     id_kegiatan  : id_kegiatan,

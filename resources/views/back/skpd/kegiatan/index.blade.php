@@ -31,7 +31,6 @@
                       <th>Kegiatan</th>
                       <th >Kode Sub Kegiatan</th>
                       <th>Sub Kegiatan</th>
-                      <th>SKPD Terkait</th>
                       <th style="width:100px">Aksi</th>
                     </tr>
                     </thead>
@@ -45,7 +44,6 @@
                       <td>{{$row->nama_kegiatan}}</td>
                       <td>{{$row->kode_sub_kegiatan}}</td>
                       <td>{{$row->nama_sub_kegiatan}}</td>
-                      <td>{{$row->nama_skpd}}</td>
                       <td>
                           <center>
                             <a href="{{url(modul('path').'/edit/'.en($row->id_kegiatan))}}" class="btn btn-warning btn-xs text-white"><i class="fas fa-edit"></i></a>

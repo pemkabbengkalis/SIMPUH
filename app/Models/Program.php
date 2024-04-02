@@ -22,6 +22,7 @@ function input($data){
   self::insert([
     'kode_program'=>$data->kode_program,
     'nama_program'=>$data->nama_program,
+    'id_program_unggulan'=>$data->unggulan
   ]);
   return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil ditambah');
 }

@@ -23,11 +23,17 @@ class KegiatanController extends Controller
   });
     $this->model = $model;
     $this->view = 'back.admin.kegiatan.';
+    $this->viewSkpd = 'back.skpd.kegiatan.';
     View::share(['program'=>$ref,'skpd'=>$skpd]);
   }
   function kegiatan(){
     return view($this->view.'index',['data'=>$this->model]);
   }
+
+  function kegiatanskpd(){
+    return view($this->viewSkpd.'index',['data'=>$this->model]);
+  }
+
   function edit(Request $req, $id){
     $edit = $this->model->whereid(de($id))->first();
     if($req->submit){
@@ -44,7 +50,11 @@ class KegiatanController extends Controller
     if($req->submit){
       $this->model->input($req);
     }
-  return view($this->view.'form');
+    if('admin' == Session::get('level')){
+     return view($this->view.'form');
+    }else{
+      return view($this->viewSkpd.'form');
+    }
   }
 
   function getsubkegiatans(Request $r){
@@ -67,8 +77,10 @@ class KegiatanController extends Controller
                   $html .= '<option value="' . $row->nama_ref . '" '.$selected.'>' . $row->nama_ref . '</option>';
                 }
                 }else{
+                  if($r->id_program==$arr){
                   $temKodeKegiatan = explode(' ',$row->nama_ref);
                   $html .= '<option value="' . $row->nama_ref . '">' . $row->nama_ref . '</option>';
+                  }
                 }
 
 
@@ -99,7 +111,9 @@ class KegiatanController extends Controller
                     $html .= '<option value="' . $row->nama_ref . '" '.$selected.'>' . $row->nama_ref . '</option>';
                     }
                 }else{
+                  if($idkegiatan[0]==$arr){
                     $html .= '<option value="' . $row->nama_ref . '">' . $row->nama_ref . '</option>';
+                  }
                 }
 
 

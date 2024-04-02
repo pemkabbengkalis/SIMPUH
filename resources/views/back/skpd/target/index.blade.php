@@ -58,7 +58,7 @@
                                         <select name="jenis" class="form-control" required>
                                             <option value="">--Pilih Jenis--</option>
                                             @foreach($jenis as $dj)
-                                            <option value="{{ $dj }}">{{ $dj }}</option>
+                                            <option value="{{ $dj }}" @if($dj=='awal') selected @endif>{{ $dj }}</option>
                                             @endforeach
                                         </select>
                                     
@@ -80,10 +80,25 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-12">
+                          <div style="display:flex;justify-content: space-between;">
+                          <div style="width:60%">
+                          <h3 style="font-weight:bold" class="card-title mt-2"><i class="fa fa-bullseye"></i> Data
+                                    Target</h3>
+                          </div>
+                          <div style="width: 40%;display:flex;gap:20px">
+                          <select style="width:75%" class="form-control" name="" required>
+                             <option value="">--Pilih Tahun--</option>
+                             @for($i=2022; $i <= date('Y'); $i++)
+                                <option value="{{$i}}">{{$i}}</option>
+                             @endfor
+                            </select>
                                 <a data-toggle="modal" data-target="#myModal" style="float:right;"
                                     class="btn btn-success"><i class="fa fa-plus"></i> Tambah Data</a>
-                                <h3 style="font-weight:bold" class="card-title mt-2"><i class="fa fa-bullseye"></i> Data
-                                    Target</h3>
+                          </div>
+                            
+                               
+</div>
+                               
                                 <!--<a href="{{ url(modul('path').'/create') }}"
                                     type="button" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"
                                         aria-hidden="true"></i> Tambah</a>-->
@@ -105,12 +120,19 @@
                             </thead>
                             <tbody>
                                 @foreach($data as $index =>$v)
+                                @php
+                                    $target = explode(',',$v->kuantitas);
+                                    $satuan = explode(',',$v->satuan);
+                                @endphp
                                 <tr>
                                     <td>{{ $index+1 }}</td>
                                     <td>{{ $v->nama_sub_kegiatan }}</td>
                                     <td>
-                                        {{ $v->kuantitas.' '.$v->satuan }}
-                                        {{kuantitaslain($v->id)}}
+                                        
+                                        @foreach($target as $i => $t)
+                                           {{ $t.' '.$satuan[$i] }}<br>
+                                        @endforeach
+                                        
                                     </td>
                                     <td>{{ $v->target_tahun }}</td>
                                     <td>{{ 'Rp '.number_format($v->pagu) }}</td>

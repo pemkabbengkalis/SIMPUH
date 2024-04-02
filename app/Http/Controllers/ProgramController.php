@@ -42,10 +42,11 @@ class ProgramController extends Controller
     return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil ditambah');
   }
   function create(Request $req){
+    $data = ProgramUnggulan::all();
     if($req->submit){
       $this->model->input($req);
     }
-  return view($this->view.'form');
+  return view($this->view.'form',compact('data'));
   }
 
 }
