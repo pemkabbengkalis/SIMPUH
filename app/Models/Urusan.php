@@ -48,7 +48,6 @@ function edit($id,$data){
   self::where('id_urusan',$id)->update([
     'kode_urusan'=>$data->kode_urusan,
     'nama_urusan'=>$data->nama_urusan,
-    'id_program_unggulan'=>$data->id_program_unggulan,
   ]);
   return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil Diedit');
 }

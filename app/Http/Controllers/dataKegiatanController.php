@@ -30,6 +30,14 @@ class dataKegiatanController extends Controller
   }
   function edit(Request $req, $id){
     $edit = $this->model->whereid(de($id))->first();
+    $kode = explode(' ',$edit->nama_ref);
+    $kode = $kode[0];
+    $parts = explode(' ', $edit->nama_ref, 2); // Split into two parts, limit to 2 elements
+    $nama_keg = isset($parts[1]) ? $parts[1] : ''; 
+    $edit =[
+      'kode'=>$kode,
+      'nama_keg'=>$nama_keg,
+    ];
     if($req->submit){
       $this->model->edit(de($id),$req);
     }

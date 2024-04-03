@@ -33,7 +33,7 @@ function input($data){
   return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil ditambah');
 }
 function remove($id){
-  $q = self::where('id_urusan',$id);
+  $q = self::where('kode_bidang_urusan',$id);
   if(empty($q->first()))
   return redirect(modul('path'))->send()->with('danger',$this->modul.' Tidak Ditemukan');
   $q->delete();

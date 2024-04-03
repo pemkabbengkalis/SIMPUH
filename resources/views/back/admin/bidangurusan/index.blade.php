@@ -39,7 +39,7 @@
                       <td>
                           <center>
                             <a href="{{url(modul('path').'/edit/'.en($row->kode_bidang_urusan))}}" class="btn btn-warning btn-xs text-white"><i class="fas fa-edit"></i></a>
-                            <a href="{{url(modul('path').'/delete/'.en($row->kode_bidang_urusan))}}" class="btn btn-danger btn-xs"><i class="fa fa-trash" aria-hidden="true" onclick="return confirm('Yakin akan menghapus data ini?')"></i></a>
+                            <a href="{{url(modul('path').'/delete/'.en($row->kode_bidang_urusan))}}" onclick="return confirm('Yakin akan menghapus data ini?')"  class="btn btn-danger btn-xs"><i class="fa fa-trash" aria-hidden="true" onclick="return confirm('Yakin akan menghapus data ini?')"></i></a>
                           </center>
                       </td>
                     </tr>

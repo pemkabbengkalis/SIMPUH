@@ -441,17 +441,23 @@ function findProgram($id){
 }
 function get_programfromidunggulan($id,$tahun,$idskpd){
   return DB::table('tbl_program')->where('tbl_target.id_skpd',$idskpd)->where('id_program_unggulan',$id)->where('target_tahun',$tahun)
-
           ->join('tbl_kegiatan','tbl_kegiatan.id_program','tbl_program.id_program')
           ->join('tbl_sub_kegiatan','tbl_sub_kegiatan.id_kegiatan','tbl_kegiatan.id_kegiatan')
           ->join('tbl_target','tbl_target.id_sub_kegiatan','tbl_sub_kegiatan.id_sub_kegiatan')->groupby('nama_program')->get();
 }
 
-function getDataKegiatanByIdProgram($idprogram){
-   return DB::table('tbl_kegiatan')->where('id_program',$idprogram)->where('id_skpd',session('id_skpd'))->groupby('id_kegiatan')->get();
+function getDataKegiatanByIdProgram($idprogram,$idskpd,$tahun){
+   return DB::table('tbl_kegiatan')->where('id_program',$idprogram)->where('tbl_target.id_skpd',$idskpd)
+   ->where('target_tahun',$tahun)
+   ->join('tbl_sub_kegiatan','tbl_sub_kegiatan.id_kegiatan','tbl_kegiatan.id_kegiatan')
+   ->join('tbl_target','tbl_target.id_sub_kegiatan','tbl_sub_kegiatan.id_sub_kegiatan')
+   ->groupby('tbl_kegiatan.id_kegiatan')->get();
 }
-function getDataSubKegiatanFromIdKegiatan($idkegiatan){
-  return DB::table('tbl_sub_kegiatan')->where('id_kegiatan',$idkegiatan)->get();
+function getDataSubKegiatanFromIdKegiatan($idkegiatan,$tahun){
+  return DB::table('tbl_sub_kegiatan')->where('id_kegiatan',$idkegiatan)
+  ->where('target_tahun',$tahun)
+  ->join('tbl_target','tbl_target.id_sub_kegiatan','tbl_sub_kegiatan.id_sub_kegiatan')
+  ->get();
 
 }
 
@@ -464,11 +470,13 @@ function get_kegiatanone($id,$tahun,$idskpd,$idkegiatan,$idsub){
             ->join('tbl_kegiatan','tbl_kegiatan.id_program','tbl_program.id_program')
             ->join('tbl_sub_kegiatan','tbl_sub_kegiatan.id_kegiatan','tbl_kegiatan.id_kegiatan')
             ->join('tbl_target','tbl_target.id_sub_kegiatan','tbl_sub_kegiatan.id_sub_kegiatan')->first();
+  
 
-        $tw1         = tw1($v->id,'I',$tahun);
-        $tw2         = tw2($v->id,'II',$tahun);
-        $tw3         = tw3($v->id,'III',$tahun);
-        $tw4         = tw4($v->id,'IV',$tahun);
+            $tw1 = tw1(!empty($v->id) ? $v->id : 0, 'I', $tahun);
+            $tw2 = tw2(!empty($v->id) ? $v->id : 0, 'II', $tahun);
+            $tw3 = tw3(!empty($v->id) ? $v->id : 0, 'III', $tahun);
+            $tw4 = tw4(!empty($v->id) ? $v->id : 0, 'IV', $tahun);
+            
         //Realisasi Pagu
         $relpagutw1  = (!empty($tw1->realisasi_pagu)) ? $tw1->realisasi_pagu : 0;
         $relpagutw2  = (!empty($tw2->realisasi_pagu)) ? $tw2->realisasi_pagu : 0;
@@ -482,15 +490,15 @@ function get_kegiatanone($id,$tahun,$idskpd,$idkegiatan,$idsub){
         //END REALPAGU
         $totpagu      = $relpagutw1+$relpagutw2+$relpagutw3+$relpagutw4;
         $totkuantitas = $relkuantw1+$relkuantw2+$relkuantw3+$relkuantw4;
-        $tcp_pagu     = ($totpagu/$v->pagu) * 100;
-        $tcp_kuantitas= ($totkuantitas/$v->kuantitas) * 100;
+        $tcp_pagu     = !empty($v->pagu) ? ($totpagu/($v->pagu)) * 100 : 0;
+        $tcp_kuantitas= !empty($v->kuantitas) ? ($totkuantitas/$v->kuantitas) * 100 : 0;
         $da=[
-        'nama_sub_kegiatan'=>$v->nama_sub_kegiatan,
-        'nama_kegiatan'=>$v->nama_kegiatan,
-        'kuantitas'=>$v->kuantitas,
-        'satuan'=>$v->satuan,
-        'pagu'=>$v->pagu,
-        'id'=>$v->id,
+        'nama_sub_kegiatan'=>$v->nama_sub_kegiatan ?? '',
+        'nama_kegiatan'=>$v->nama_kegiatan ?? '',
+        'kuantitas'=>$v->kuantitas ?? '',
+        'satuan'=>$v->satuan ?? '',
+        'pagu'=>$v->pagu ?? 0,
+        'id'=>$v->id ?? '',
         'tw1_kuantitas'=>(!empty($tw1->realisasi_kuantitas)) ? $tw1->realisasi_kuantitas : '',
         'tw1_rel_satuan'=>(!empty($tw1->realisasi_satuan)) ? $tw1->realisasi_satuan : '',
         'tw1_rel_pagu'=>(!empty($tw1->realisasi_pagu)) ? $tw1->realisasi_pagu : 0,
@@ -518,7 +526,7 @@ function get_kegiatanone($id,$tahun,$idskpd,$idkegiatan,$idsub){
         'tw4_keterangan'=>(!empty($tw4->keterangan)) ? $tw4->keterangan : '',
         'tw4_kendala'=>(!empty($tw4->kendala)) ? $tw4->kendala : '',
         'tw4_tindakan'=>(!empty($tw4->tindakan))? $tw4->kendala : '',
-        'tw4_rel_fisik'=>(!empty($tw4->realisasifisik))? $tw4->rrealisasifisik:0,
+        'tw4_rel_fisik'=>(!empty($tw4->realisasifisik))? $tw4->realisasifisik:0,
         'tw1_id'=>(!empty($tw1->id_realisasi))? $tw1->id_realisasi : null,
         'tw2_id'=>(!empty($tw2->id_realisasi))? $tw2->id_realisasi : null,
         'tw3_id'=>(!empty($tw3->id_realisasi))? $tw3->id_realisasi : null,
@@ -785,4 +793,75 @@ function tglindo($val)
 
     //untuk menampilkan hari, tanggal bulan tahun
     return "$tanggal $bulan $tahun";
+}
+
+function TotalKuantitasByProgram($id,$tahun,$skpd){
+   $data = Subkegiatan::where('tbl_kegiatan.id_program',$id)
+           ->where('tbl_kegiatan.id_skpd',$skpd)
+           ->where('tbl_target.target_tahun',$tahun)
+           ->join('tbl_target','tbl_target.id_sub_kegiatan','tbl_sub_kegiatan.id_sub_kegiatan')
+           ->join('tbl_kegiatan','tbl_kegiatan.id_kegiatan','tbl_sub_kegiatan.id_kegiatan')
+           ->sum('tbl_target.pagu');
+    return formatRp($data);
+
+}
+
+function TotalRealisasiByProgram($id,$tahun,$skpd){
+  $data = Subkegiatan::where('tbl_kegiatan.id_program',$id)
+          ->where('tbl_kegiatan.id_skpd',$skpd)
+          ->where('tbl_target.target_tahun',$tahun)
+          ->join('tbl_target','tbl_target.id_sub_kegiatan','tbl_sub_kegiatan.id_sub_kegiatan')
+          ->join('tbl_kegiatan','tbl_kegiatan.id_kegiatan','tbl_sub_kegiatan.id_kegiatan')
+          ->join('tbl_realisasi','tbl_realisasi.id_target','tbl_target.id')
+          ->sum('tbl_realisasi.realisasi_pagu');
+   return formatRp($data);
+}
+
+function TotalRealisasiByProgramTW($id,$tahun,$skpd,$tw){
+  $data = Subkegiatan::where('tbl_kegiatan.id_program',$id)
+          ->where('tbl_kegiatan.id_skpd',$skpd)
+          ->where('tbl_target.target_tahun',$tahun)
+          ->where('tbl_realisasi.triwulan',$tw)
+          ->join('tbl_target','tbl_target.id_sub_kegiatan','tbl_sub_kegiatan.id_sub_kegiatan')
+          ->join('tbl_kegiatan','tbl_kegiatan.id_kegiatan','tbl_sub_kegiatan.id_kegiatan')
+          ->join('tbl_realisasi','tbl_realisasi.id_target','tbl_target.id')
+          ->sum('tbl_realisasi.realisasi_pagu');
+   return formatRp($data);
+}
+function TotalKuantitasByKegiatan($id,$tahun,$skpd){
+  $data = Subkegiatan::where('tbl_kegiatan.id_kegiatan',$id)
+          ->where('tbl_kegiatan.id_skpd',$skpd)
+          ->where('tbl_target.target_tahun',$tahun)
+          ->join('tbl_target','tbl_target.id_sub_kegiatan','tbl_sub_kegiatan.id_sub_kegiatan')
+          ->join('tbl_kegiatan','tbl_kegiatan.id_kegiatan','tbl_sub_kegiatan.id_kegiatan')
+          ->sum('tbl_target.pagu');
+   return formatRp($data);
+
+}
+function TotalRealisasiByKegiatan($id,$tahun,$skpd){
+  $data = Subkegiatan::where('tbl_kegiatan.id_kegiatan',$id)
+          ->where('tbl_kegiatan.id_skpd',$skpd)
+          ->where('tbl_target.target_tahun',$tahun)
+          ->join('tbl_target','tbl_target.id_sub_kegiatan','tbl_sub_kegiatan.id_sub_kegiatan')
+          ->join('tbl_kegiatan','tbl_kegiatan.id_kegiatan','tbl_sub_kegiatan.id_kegiatan')
+          ->join('tbl_realisasi','tbl_realisasi.id_target','tbl_target.id')
+          ->sum('tbl_realisasi.realisasi_pagu');
+   return formatRp($data);
+}
+
+function formatRp($number) {
+  // Split the number into integer and decimal parts
+  $parts = explode('.', strval($number));
+
+  // Format the integer part with commas
+  $formatted_integer = number_format($parts[0]);
+
+  // If there is a decimal part, add it back
+  if (isset($parts[1])) {
+      $formatted_number = $formatted_integer . '.' . $parts[1];
+  } else {
+      $formatted_number = $formatted_integer;
+  }
+
+  return $formatted_number;
 }
