@@ -33,7 +33,7 @@ function input($data){
 }
 
 function updaterel($data){
-  
+
   self::where('id_realisasi',$data->id_realisasi)->update([
     'id_target'=>$data->idtarget,
     'id_skpd'=>Session::get('id_skpd'),
@@ -64,9 +64,11 @@ function bulantahapan($data){
         return '10';
     }
 }
+function target(){
+        return $this->belongsTo(Target::class, 'id_target', 'id_target');
+}
 
-
-
-
-
+function skpd(){
+    return $this->belongsTo(SkpdModel::class, 'id_skpd', 'id_skpd');
+}
 }

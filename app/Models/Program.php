@@ -17,7 +17,12 @@ function whereid($id){
   return redirect(modul('path'))->send()->with('danger',$this->modul.' Tidak Ditemukan');
   return $q;
 }
-
+function kegiatan(){
+    return $this->hasMany(Kegiatan::class, 'id_program', 'id_program');
+}
+function program_unggulan(){
+    return $this->belongsTo(ProgramUnggulan::class, 'id_program_unggulan', 'id_program_unggulan');
+}
 function input($data){
   self::insert([
     'kode_program'=>$data->kode_program,

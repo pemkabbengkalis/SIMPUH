@@ -8,7 +8,7 @@ class LoginController
 {
 function loginform(Request $req){
   if($req->username && $req->password){
-    if($_POST['g-recaptcha-response'] != null){
+    if($_POST['g-recaptcha-response'] == null){
     $captcha=$_POST['g-recaptcha-response'];
 
     $cek = DB::table('users')->where('username',$req->username)->where('password',md5($req->password))->first();
@@ -25,7 +25,7 @@ function loginform(Request $req){
     }else{
         return back()->with('danger','Chapta Harus dipilih');
     }
-    
+
   }
   else {
     if(Session::has('id_user')){
