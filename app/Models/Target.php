@@ -66,7 +66,7 @@ function updatetargetunggulan($data,$id){
   } catch (\Throwable $th) {
     return back()->with('success','Data berhasil diupdate');
   }
-  
+
 }
 
 
@@ -80,8 +80,14 @@ function listprogram($idskpd,$tahun){
     ->get();
 }
 
+function sub_kegiatan(){
+    return $this->hasMany(SubKegiatan::class, 'id_sub_kegiatan', 'id_sub_kegiatan');
+}
 
-
-
-
+function realisasi(){
+    return $this->hasMany(Realisasi::class, 'id_target', 'id_target');
+}
+function skpd(){
+    return $this->belongsTo(SkpdModel::class, 'id_skpd', 'id_skpd');
+}
 }

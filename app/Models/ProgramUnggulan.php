@@ -34,4 +34,8 @@ function edit($id,$data){
   ]);
   return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil Diedit');
 }
+
+function program(){
+    return $this->hasMany(Program::class, 'id_program_unggulan', 'id_program_unggulan');
+}
 }
