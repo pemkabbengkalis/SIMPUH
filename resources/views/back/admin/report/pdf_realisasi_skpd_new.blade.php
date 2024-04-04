@@ -2,7 +2,7 @@
 @php
 	 header("Content-type: application/vnd-ms-excel");
 	 header('Content-Transfer-Encoding: Binary');
-	 header("Content-Disposition: attachment; filename=Evaluasi Triwulan ".$trw." ".Str::upper(nama_skpd(request('skpd'))).".xls"); 
+	 header("Content-Disposition: attachment; filename=Evaluasi Triwulan ".$trw." ".Str::upper(nama_skpd(request('skpd'))).".xls");
      @endphp
 @endif
 <style>
@@ -19,7 +19,7 @@
                   </center>
                <table   style="border-color:#000;border-collapse:collapse;width:100%;font-size:10px">
                 <thead>
-            
+
                     <tr>
                         <th rowspan="3" width="15%" style="vertical-align:middle" class="text-center">Progarm Unggulan</th>
                         <th  width="15%" rowspan="3" style="vertical-align:middle" class="text-center">Program / Kegiatan / Sub Kegiatan</th>
@@ -30,12 +30,12 @@
                         <th rowspan="3" width="15%" style="vertical-align:middle;text-align:center">Kendala <br>Yang Dihadapi</th>
                         <th rowspan="3" width="15%" style="vertical-align:middle;text-align:center">Tindak Lanjut</th>
                     </tr>
-                    
+
                     <tr>
-                       
+
                         @foreach(['I','II','III','IV'] as $k=>$r)
                         <th colspan="2" class="text-center">
-                            
+
                             TRIWULAN {{$r}} </th>
                         @endforeach
                     </tr>
@@ -80,7 +80,7 @@
                         $trr = 0;
                         @endphp
                         @foreach($r->realisasi as $kr=>$rr1)
-                        @php 
+                        @php
                         $trr++;
                         @endphp
                         <td class="text-center"></td>
@@ -108,7 +108,7 @@
                         $trr = 0;
                         @endphp
                         @foreach($r2->realisasi as $rr2)
-                        @php 
+                        @php
                         $trr++;
                         @endphp
                         <td class="text-center"></td>
@@ -128,7 +128,7 @@
                         <td></td>
                     </tr>
                     @foreach($r2->sub_kegiatan as $r3)
-                    
+
                     <tr>
                     <td class="pl-5">{{$r3->nama_sub_kegiatan}}</td>
                     <td>{{$r3->kuantitas}} {{$r3->satuan}}</td>
@@ -137,7 +137,7 @@
                         $trr = 0;
                         @endphp
                     @foreach($r3->realisasi as $r4)
-                    @php 
+                    @php
                         $trr++;
                         @endphp
                     <td class="text-center" align="center">{{$r4->kuantitas}}</td>
@@ -154,7 +154,7 @@
                     <td align="right">{{rp($r3->evaluasi)}}</td>
                     <td align="center">{{$r3->persen_kuantitas}}</td>
                     <td align="center">{{$r3->persen_pagu}}</td>
-               
+
                     <td>
 @foreach($r3->kendala as $k=>$rj)
 <span class="kendala_{{$k+1}} kendala" style="{{$k+1 == request('trw') ? '': 'display:none'}}">{{$rj}}</span>
