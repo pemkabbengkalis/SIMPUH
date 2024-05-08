@@ -78,11 +78,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a onclick="if(confirm('Yakin ingin keluar?')){location.href='{{ url('logout') }}'}"
-                        class="nav-link">
-                        <i class="nav-icon fas fa-power-off"></i>
-                        <p>Keluar</p>
-                    </a>
+                <a id="logoutButton" onclick="konfirmasiLogout();" class="nav-link">
+    <i class="nav-icon fas fa-power-off"></i>
+    <p>Keluar</p>
+</a>
                 </li>
 
             </ul>
@@ -97,3 +96,26 @@
 
     <!-- /.sidebar -->
 </aside>
+
+<script>
+    function konfirmasiLogout() {
+        Swal.fire({
+            title: 'Apakah Anda yakin ingin keluar?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Terima kasih!',
+                    'Anda telah keluar dari Aplikasi SIMPUH.',
+                    'success'
+                ).then(() => {
+                    // Redirect ke URL logout
+                    window.location.href = "{{ url('logout') }}";
+                });
+            }
+        });
+    }
+</script>

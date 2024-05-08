@@ -107,9 +107,9 @@ class RealisasiDataNew
                         $d['evaluasi'] = $d['evaluasi'] + $this->get_realisasi_triwulan($qsbk['id_target'], $real, $qsbk['satuan'])['pagu'];
                         array_push($tr, ['triwulan' => $real, 'pagu' => $this->get_realisasi_triwulan($qsbk['id_target'], $real, $qsbk['satuan'])['pagu']]);
 
-                    
-                        $b['persen_kuantitas'] = Str::contains($qsbk['kuantitas'],',') ? 0 : $b['persen_kuantitas'] + round($this->get_realisasi_triwulan($qsbk['id_target'], $real, $qsbk['satuan'])['kuantitas'] /  $qsbk['kuantitas'] * 100,2);
-                      
+                        $bk = $this->get_realisasi_triwulan($qsbk['id_target'], $real, $qsbk['satuan'])['kuantitas'] /  $qsbk['kuantitas'] > 0 ? $this->get_realisasi_triwulan($qsbk['id_target'], $real, $qsbk['satuan'])['kuantitas'] /  $qsbk['kuantitas'] : 0;
+                        $b['persen_kuantitas'] = Str::contains($qsbk['kuantitas'],',') ? 0 : $b['persen_kuantitas'] + ($bk ? round( $bk * 100,2):0);
+
                         $b['persen_pagu'] = $b['persen_pagu'] + round($this->get_realisasi_triwulan($qsbk['id_target'], $real, $qsbk['satuan'])['pagu'] / $qsbk['rp'] * 100,2);
                         $b['persen_kuantitas'] = $b['persen_kuantitas'] > 100 ? 100 : $b['persen_kuantitas'];
                         $b['persen_pagu'] = $b['persen_pagu'] > 100 ? 100 : $b['persen_pagu'];

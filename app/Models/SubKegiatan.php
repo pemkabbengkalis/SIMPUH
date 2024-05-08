@@ -42,4 +42,11 @@ function edit($id,$data){
   ]);
   return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil Diedit');
 }
+
+function target(){
+    return $this->belongsTo(Target::class, 'id_sub_kegiatan', 'id_sub_kegiatan');
+}
+function kegiatan(){
+    return $this->belongsTo(Kegiatan::class, 'id_kegiatan', 'id_kegiatan');
+}
 }

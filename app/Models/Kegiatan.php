@@ -94,4 +94,11 @@ function edit($id,$data){
    
     
 }
+
+function program(){
+    return $this->belongsTo(Program::class, 'id_program', 'id_program');
+}
+function sub_kegiatan(){
+    return $this->hasMany(SubKegiatan::class, 'id_kegiatan', 'id_kegiatan');
+}
 }

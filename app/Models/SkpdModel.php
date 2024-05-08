@@ -46,4 +46,10 @@ function edit($id,$data){
   return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil Diedit');
 }
 protected $enum = ['organisasi', 'kecamatan'];
+
+function realisasi(){
+    return $this->hasMany(Realisasi::class, 'id_skpd', 'id_skpd');
 }
+}
+
+

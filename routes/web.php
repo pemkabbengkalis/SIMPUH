@@ -62,11 +62,11 @@ if(request()->is('settings')){
         foreach($value->child as $child):
           if(request()->is($child->path) || request()->is($child->path.'/*') || request()->is($child->path.'/*/*')){
             $url = request()->path();
-            $title = match(true) {
-              Str::contains($url,'create') => 'Tambah ',
-              Str::contains($url,'edit')  => 'Edit ',
-              default => ''
-            };
+                    $title = match (true) {
+                        Str::contains($url, 'create') => 'Tambah ',
+                        Str::contains($url, 'edit') => 'Edit ',
+                        default => ''
+                    };
             config(['app.module'=>[
               "nama_menu" => $title.$child->nama_menu,
               "path"  => $child->path,
