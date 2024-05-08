@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="{{ asset('backend_template') }}/dist/vanilaCalendar.css">
   <!--SELECT 2-->
   <link rel="stylesheet" href="{{ asset('backend_template') }}/plugins/select2/css/select2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
    #containercart {
   height: 400px;

@@ -476,6 +476,9 @@ function get_kegiatanone($id,$tahun,$idskpd,$idkegiatan,$idsub){
             $tw2 = tw2(!empty($v->id) ? $v->id : 0, 'II', $tahun);
             $tw3 = tw3(!empty($v->id) ? $v->id : 0, 'III', $tahun);
             $tw4 = tw4(!empty($v->id) ? $v->id : 0, 'IV', $tahun);
+        $kuantitas    = explode(',',$v->kuantitas);
+        $satuan       = explode(',',$v->satuan);
+        $jmlKuantitas = count($kuantitas);
             
         //Realisasi Pagu
         $relpagutw1  = (!empty($tw1->realisasi_pagu)) ? $tw1->realisasi_pagu : 0;
@@ -491,7 +494,13 @@ function get_kegiatanone($id,$tahun,$idskpd,$idkegiatan,$idsub){
         $totpagu      = $relpagutw1+$relpagutw2+$relpagutw3+$relpagutw4;
         $totkuantitas = $relkuantw1+$relkuantw2+$relkuantw3+$relkuantw4;
         $tcp_pagu     = !empty($v->pagu) ? ($totpagu/($v->pagu)) * 100 : 0;
-        $tcp_kuantitas= !empty($v->kuantitas) ? ($totkuantitas/$v->kuantitas) * 100 : 0;
+        if($jmlKuantitas > 0){
+          
+          $tcp_kuantitas= !empty($v->kuantitas) ? ($totkuantitas/array_sum($kuantitas)) * 100 : 0;
+        }else{
+          $tcp_kuantitas= !empty($v->kuantitas) ? ($totkuantitas/$v->kuantitas) * 100 : 0;
+        }
+        
         $da=[
         'nama_sub_kegiatan'=>$v->nama_sub_kegiatan ?? '',
         'nama_kegiatan'=>$v->nama_kegiatan ?? '',
