@@ -118,6 +118,7 @@
 		    </div><!--//row-->
 	    </div><!--//container-->
     </section><!--//hero-section-->
+	{{-- Rey --}}
 
     <!-- Javascript -->
 		<script>
