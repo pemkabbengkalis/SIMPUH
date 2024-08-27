@@ -21,38 +21,55 @@ class AdminSkpdController extends Controller
   });
   
   }
-function dashboard(){
+  function dashboard(Request $r)
+  {
+      $tahun = (isset($_GET['tahun'])) ? $_GET['tahun'] : date('Y');
+      if(!isset($_GET['filter'])){
+          return redirect('skpd/dashboard?filter=GRAFIK&tahun='.date('Y'));
+      }else{
 
-  // dashbord count
-  $jmlhPrgUngg = DB::table('tbl_program_unggulan')->count();
-  $targetSKPD = DB::table('tbl_target')->where('id_skpd',Session::get('id_skpd'))->count();
-  $jmlahRealisasiSKPD = DB::table('tbl_realisasi')->where('id_skpd',Session::get('id_skpd'))->sum('realisasi_pagu');
-  $jmlahKegiatanSKPD = DB::table('tbl_kegiatan')->where('id_skpd',Session::get('id_skpd'))->count();
+          $jmlhPrgUngg = DB::table('tbl_program_unggulan')->count();
+          $semuaTargetSKPD = DB::table('tbl_kegiatan')->where('id_skpd',Session::get('id_skpd'))->count();
+          $semuaRealisasiSKPD = DB::table('tbl_realisasi')->where('realisasi_tahun',$tahun)->where('id_skpd',Session::get('id_skpd'))->sum('realisasi_pagu');
+          $TargetSKPD = DB::table('tbl_target')->where('id_skpd',Session::get('id_skpd'))->where('target_tahun',$tahun)->sum('pagu');
+          $semuaKegiatanSKPD = DB::table('tbl_kegiatan')->where('id_skpd',Session::get('id_skpd'))->count();
 
-  // untuk mendapatkan persentase
-  $persentase = DB::table('tbl_skpd')
-            ->select('tbl_skpd.id_skpd', 'tbl_skpd.nama_skpd', 'tbl_realisasi.realisasi_pagu', 'tbl_target.pagu', 'tbl_realisasi.realisasi_tahun', 'tbl_target.target_tahun' ,DB::raw('SUM(tbl_realisasi.realisasi_pagu) as total_realisasi_pagu'))
-            ->where('tbl_target.target_tahun', '=' , self::getTahun())
-            ->where('tbl_realisasi.realisasi_tahun', '=' , self::getTahun())
-            ->join('tbl_target', 'tbl_target.id_skpd', '=', 'tbl_skpd.id_skpd')
-            ->join('tbl_realisasi', 'tbl_realisasi.id_target', '=', 'tbl_target.id')
-            ->groupBy('tbl_skpd.id_skpd')
-            ->orderBy('total_realisasi_pagu', 'DESC')
-            ->get();
+          // untuk mendapatkan persentase
+          $result_anggaran = array();
+          $skpd = DB::table('tbl_skpd')->where('tbl_target.id_skpd',Session::get('id_skpd'))->join('tbl_target','tbl_target.id_skpd','tbl_skpd.id_skpd')->groupby('tbl_skpd.id_skpd')->get();
+          foreach ($skpd as $i => $v) {
+              $persen = getpersenanggaranfromskpd($v->id_skpd,$tahun);
+              $data_skpd = [
+                  'nama_skpd'=>$v->nama_skpd,
+                  'persenkinerja'=>$persen['persen'],
+                  'anggaran'=>$persen['anggaran']
+              ];
+              array_push($result_anggaran,$data_skpd);
 
-  $periode = self::getTahun();
+          }
+          usort($result_anggaran, function ($a, $b) {
+              return $b['persenkinerja'] - $a['persenkinerja'];
+          });
+          $anggaranpersen = $result_anggaran;
 
-  $tahun = DB::table('tbl_tahun')->get();
-  
-if(Session::get('level')=='skpd'){
-          // dd($persentase);
-          return view('back.skpd.dashboard', compact('jmlhPrgUngg', 'targetSKPD','jmlahRealisasiSKPD', 'jmlahKegiatanSKPD','persentase', 'tahun', 'periode'));
-        }else{
-          return view('back.index');  
-        }
+          $periode = $tahun;
+          $tahun = DB::table('tbl_tahun')->get();
 
-}
-function skpd(){
+          $program =  DB::table('tbl_program_unggulan')->get();
+          $th = (isset($_GET['tahun'])) ? $_GET['tahun']:date('Y');
+
+          if (Session::get('level') == 'skpd') {
+              return view('back.skpd.dashboard',compact('TargetSKPD','th','program','jmlhPrgUngg', 'semuaTargetSKPD', 'semuaRealisasiSKPD', 'semuaKegiatanSKPD', 'anggaranpersen', 'tahun', 'periode'));
+          } else {
+              // dd($pembanding);
+              return view('back.index', compact('TargetSKPD','th','program','jmlhPrgUngg', 'semuaTargetSKPD', 'semuaRealisasiSKPD', 'semuaKegiatanSKPD', 'anggaranpersen', 'tahun', 'periode'));
+          }
+      }
+
+  }
+
+
+    function skpd(){
   return view('back.admin.skpd.index');
 }
 function skpd_create(){
