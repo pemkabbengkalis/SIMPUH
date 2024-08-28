@@ -63,10 +63,10 @@
 
                          <label>Realisasi Fisik</label>
                          <input value="{{ $vk['tw1_rel_fisik'] }}" type="text" pattern="[0-9,]+" name="realisasifisik[]" class="form-control" required>
-
-                         <label>Keterangan</label>
-
-                          <Textarea class="form-control" required name="keterangan[]">@if(!empty($vk['tw1_keterangan'])){{ $vk['tw1_keterangan'] }} @else - @endif</Textarea>
+                         <input type="hidden" name="keterangan[]" value="-">
+                         <!-- <label>Keterangan</label>
+                          
+                          <Textarea type="hidden" class="form-control" required name="keterangan[]">@if(!empty($vk['tw1_keterangan'])){{ $vk['tw1_keterangan'] }} @else - @endif</Textarea> -->
                           <label>Kendala</label>
 
                           <Textarea class="form-control" required name="kendala[]">@if(!empty($vk['tw1_kendala'])){{ $vk['tw1_kendala'] }}@else @endif</Textarea>
@@ -99,10 +99,10 @@
 
                           <label>Realisasi Fisik</label>
                          <input value="{{ $vk['tw2_rel_fisik'] }}" type="text" pattern="[0-9,]+" name="realisasifisik[]" class="form-control" required>
+                         <input type="hidden" name="keterangan[]" value="-">
+                          <!-- <label>Keterangan</label>
 
-                          <label>Keterangan</label>
-
-                          <Textarea class="form-control" required name="keterangan[]"> @if(!empty($vk['tw2_keterangan']))  {{ $vk['tw2_keterangan'] }} @else - @endif</Textarea>
+                          <Textarea class="form-control" required name="keterangan[]"> @if(!empty($vk['tw2_keterangan']))  {{ $vk['tw2_keterangan'] }} @else - @endif</Textarea> -->
                           <label>Kendala</label>
 
                           <Textarea class="form-control" required name="kendala[]">@if(!empty($vk['tw2_kendala'])) {{ $vk['tw2_kendala'] }} @else - @endif</Textarea>
@@ -136,10 +136,10 @@
 
                           <label>Realisasi Fisik</label>
                          <input value="{{ $vk['tw3_rel_fisik'] }}" type="text" pattern="[0-9,]+" name="realisasifisik[]" class="form-control" required>
+                         <input type="hidden" name="keterangan[]" value="-">
+                          <!-- <label>Keterangan</label>
 
-                          <label>Keterangan</label>
-
-                          <Textarea class="form-control" required name="keterangan[]"> @if(!empty($vk['tw3_keterangan']))  {{ $vk['tw3_keterangan'] }} @else - @endif</Textarea>
+                          <Textarea class="form-control" required name="keterangan[]"> @if(!empty($vk['tw3_keterangan']))  {{ $vk['tw3_keterangan'] }} @else - @endif</Textarea> -->
                           <label>Kendala</label>
 
                           <Textarea class="form-control" required name="kendala[]">@if(!empty($vk['tw3_kendala'])) {{ $vk['tw3_kendala'] }} @else - @endif</Textarea>
@@ -172,10 +172,10 @@
 
                           <label>Realisasi Fisik</label>
                          <input value="{{ $vk['tw4_rel_fisik'] }}" type="text" pattern="[0-9,]+" name="realisasifisik[]" class="form-control" required>
+ <input type="hidden" name="keterangan[]" value="-">
+                          <!-- <label>Keterangan</label>
 
-                          <label>Keterangan</label>
-
-                          <Textarea class="form-control" required name="keterangan[]">@if(!empty($vk['tw4_keterangan'])) {{ $vk['tw4_keterangan'] }} @else -  @endif</Textarea>
+                          <Textarea class="form-control" required name="keterangan[]">@if(!empty($vk['tw4_keterangan'])) {{ $vk['tw4_keterangan'] }} @else -  @endif</Textarea> -->
                           <label>Kendala</label>
 
                           <Textarea class="form-control" required name="kendala[]">@if(!empty($vk['tw4_kendala'])) {{ $vk['tw4_kendala'] }} @else - @endif</Textarea>
