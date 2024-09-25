@@ -874,3 +874,12 @@ function formatRp($number) {
 
   return $formatted_number;
 }
+
+if (! function_exists('secure_url')) {
+  function secure_url($path = null, $parameters = [], $secure = null)
+  {
+      // Use Laravel's url() function, but replace http with https
+      $url = url($path, $parameters, $secure);
+      return str_replace('http://', 'https://', $url);
+  }
+}

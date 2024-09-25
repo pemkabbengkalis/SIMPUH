@@ -128,7 +128,7 @@ function get_kegiatans(id_program) {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: "{{url('admin/kegiatan/getsubkegiatans')}}",
+                url: "{{secure_url('admin/kegiatan/getsubkegiatans')}}",
                 type: 'POST',
                 data: {
                     id_kegiatan : id_kegiatan,
@@ -155,7 +155,8 @@ function get_kegiatans(id_program) {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: "{{url('admin/kegiatan/getsubsubkegiatans')}}",
+
+                url: "{{secure_url('admin/kegiatan/getsubsubkegiatans')}}",
                 type: 'POST',
                 data: {
                     id_kegiatan  : id_kegiatan,
