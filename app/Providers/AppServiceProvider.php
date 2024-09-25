@@ -25,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (config('app.env') !== 'local') {
+            URL::forceScheme('https'); // This forces HTTPS scheme for URLs
+        }
         new kaban;
         new Skpd;
         new superadmin;
