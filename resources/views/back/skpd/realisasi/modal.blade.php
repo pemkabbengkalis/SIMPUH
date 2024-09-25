@@ -42,7 +42,11 @@
                     <div class="tab-pane fade active show" id="custom-tabs-one-home{{ $vk['id'] }}" role="tabpanel"
                       aria-labelledby="custom-tabs-one-home-tab">
                       <!--===TW 1 FORM-->
-                      <form action="@if(!empty($vk['tw1_id'])){{ Request::url().'/update' }} @else {{ Request::url().'/create' }} @endif" method="POST">{{ csrf_field() }}
+                      <?php
+                        $furl = Request::url();
+                        $furl = str_replace('http','https',$furl);
+                      ?>
+                      <form action="@if(!empty($vk['tw1_id'])){{ $furl.'/update' }} @else {{ $furl.'/create' }} @endif" method="POST">{{ csrf_field() }}
                         <label>Pilih Tahapan</label>
                           <input type="hidden" value="{{ $vk['id'] }}" name="idtarget[]">
                           <input type="hidden" value="I" name="tahapan[]">
