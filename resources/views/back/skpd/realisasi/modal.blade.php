@@ -271,25 +271,25 @@
   });
 
 
-  document.querySelectorAll('input[name="kuantitas[]"]').forEach(input => {
-    input.addEventListener('keydown', event => {
-      const keyCode = event.keyCode;
-      const value = input.value;
-      const pattern = /^[0-9.]*$/;
+  // document.querySelectorAll('input[name="kuantitas[]"]').forEach(input => {
+  //   input.addEventListener('keydown', event => {
+  //     const keyCode = event.keyCode;
+  //     const value = input.value;
+  //     const pattern = /^[0-9.]*$/;
 
-      if (keyCode === 8) { // backspace
-        return;
-      }
+  //     if (keyCode === 8) { // backspace
+  //       return;
+  //     }
 
-      if (keyCode === 46) { // delete
-        input.value = "";
-        return;
-      }
+  //     if (keyCode === 46) { // delete
+  //       input.value = "";
+  //       return;
+  //     }
 
-      if (!pattern.test(value)) {
-        input.value = value.replace(/[^0-9.]/g, '');
-        event.preventDefault();
-      }
-    });
-  });
+  //     if (!pattern.test(value)) {
+  //       input.value = value.replace(/[^0-9.]/g, '');
+  //       event.preventDefault();
+  //     }
+  //   });
+  // });
   </script>
