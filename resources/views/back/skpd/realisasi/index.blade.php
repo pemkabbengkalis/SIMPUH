@@ -71,7 +71,7 @@
             var tahun = document.getElementById('thprint').value;
             var idskpd = {{ Session::get('id_skpd') }};
             var trw = document.getElementById('trw').value;
-            window.open('https://simpuh.bengkaliskab.go.id/cetak_realisasi/'+idskpd+'/'+tahun+'/'+trw,'popup','width=600,height=600'); return false;
+            window.open('/cetak_realisasi/'+idskpd+'/'+tahun+'/'+trw,'popup','width=600,height=600'); return false;
         };
         
     </script>
@@ -104,7 +104,7 @@
                                     <div class="form-group">
 
                                         <select name="periode" id="" class="form-control form-control-select"
-                                            onchange="if(this.value) {location.href='https://simpuh.bengkaliskab.go.id/skpd/realisasi?periode='+this.value;}else {location.href='https://simpuh.bengkaliskab.go.id/skpd/realisasi'}">
+                                            onchange="if(this.value) {location.href='/skpd/realisasi?periode='+this.value;}else {location.href='/skpd/realisasi'}">
                                             <option value="">--Pilih Tahun--</option>
                                             @foreach(getTahun() as $v)
                                             <option value="{{ $v }}" @if($v == (isset($_GET['periode']) ? $_GET['periode'] : date('Y'))) selected @endif>{{ $v }}</option>
