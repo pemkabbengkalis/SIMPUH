@@ -314,8 +314,9 @@
                                     @include('back.skpd.realisasi.modal')
                                     @endforeach
                                     @php
-                                    $kuantitaskeg += number_format($sumtcpkuantitas/$jumtcpkuantitas,2);
-                                    $realisasikeg += number_format($sumcprp/$jumcprp,2);
+                                    $kuantitaskeg += $jumtcpkuantitas != 0 ? round($sumtcpkuantitas / $jumtcpkuantitas, 2) : 0;
+                                    $realisasikeg += $jumcprp != 0 ? round($sumcprp / $jumcprp, 2) : 0;
+
                                     @endphp
                                     <!--endsubkegiatan-->
                                     @endforeach
@@ -337,8 +338,9 @@
                                         <td></td>
                                     </tr>
                                     @php
-                                    $kuantitasprog += number_format($kuantitaskeg/$countkegiatan,2);
-                                    $realisasiprog += number_format($realisasikeg/$countkegiatan,2);
+                                    $kuantitasprog += $countkegiatan != 0 ? round($kuantitaskeg / $countkegiatan, 2) : 0;
+                                    $realisasiprog += $countkegiatan != 0 ? round($realisasikeg / $countkegiatan, 2) : 0;
+
                                     @endphp
                                     @endfor
                                     <tr>
