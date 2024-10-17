@@ -170,8 +170,9 @@
                     @endforeach
                     <tr class="bg-primary">
                         <td colspan="14" align="right" class="bold">Total Rata-rata Capaian Kinerja Perprogram (%)</td>
-                        <td  align="center" class="bold"> {{round($r->persen_k / $r->total_sub,2)}}</td>
-                        <td align="center" class="bold">{{round($r->persen_rp / $r->total_sub)}}</td>
+                        <td align="center" class="bold"> {{ number_format($r->persen_k / $r->total_sub, 2, '.', '') }}</td>
+<td align="center" class="bold"> {{ number_format($r->persen_rp / $r->total_sub, 2, '.', '') }}</td>
+
                         <td align="center"></td>
                         <td></td>
                     </tr>
