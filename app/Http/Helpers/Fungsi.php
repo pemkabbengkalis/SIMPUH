@@ -416,26 +416,38 @@ return json_decode(json_encode($data));
 function cek_total_target_skpd($skpd,$tahun){
   return DB::table('tbl_target')->where('id_skpd',$skpd)->where('target_tahun',$tahun)->count();
 }
-function colorPrediket($nilai){
-  return match (true) {
-    $nilai <= 50.00 =>  'style="background-color: red;color: white;"',
-    $nilai >= 51.00 && $nilai <=65.00 => 'style="background-color: #ee8585;color: white;"',
-    $nilai > 65.00 && $nilai <=75.00 => 'style="background-color: #f39c12;color: white;"',
-    $nilai > 75.00 && $nilai <=90.00 => 'style="background-color: #00bc8c;color: white;"',
-    $nilai > 90.00 => 'style="background-color: #027759;color: white;"',
-    default => 'style="background-color: #ee8585;color: white;"'
-  };
+function colorPrediket($nilai) {
+  if ($nilai <= 50.00) {
+      return 'style="background-color: red;color: white;"';
+  } elseif ($nilai >= 51.00 && $nilai <= 65.00) {
+      return 'style="background-color: #ee8585;color: white;"';
+  } elseif ($nilai > 65.00 && $nilai <= 75.00) {
+      return 'style="background-color: #f39c12;color: white;"';
+  } elseif ($nilai > 75.00 && $nilai <= 90.00) {
+      return 'style="background-color: #00bc8c;color: white;"';
+  } elseif ($nilai > 90.00) {
+      return 'style="background-color: #027759;color: white;"';
+  } else {
+      return 'style="background-color: #ee8585;color: white;"';
+  }
 }
-function prediket($nilai){
-return match (true) {
-  $nilai <= 50.00 => 'Sangat Rendah',
-  $nilai > 50.00 && $nilai <=65.00 => 'Rendah',
-  $nilai > 65.00 && $nilai <=75.00 => 'Sedang',
-  $nilai > 75.00 && $nilai <=90.00 => 'Tinggi',
-  $nilai > 90.00  => 'Sangat Tinggi',
-  default => 'N/A'
-};
+
+function prediket($nilai) {
+  if ($nilai <= 50.00) {
+      return 'Sangat Rendah';
+  } elseif ($nilai > 50.00 && $nilai <= 65.00) {
+      return 'Rendah';
+  } elseif ($nilai > 65.00 && $nilai <= 75.00) {
+      return 'Sedang';
+  } elseif ($nilai > 75.00 && $nilai <= 90.00) {
+      return 'Tinggi';
+  } elseif ($nilai > 90.00) {
+      return 'Sangat Tinggi';
+  } else {
+      return 'N/A';
+  }
 }
+
 function findProgram($id){
   return Program::where('kode_program',$id)->first();
 }
@@ -734,13 +746,21 @@ else {
 }
 }
 
-function sesiowner(){
- return match(session('level')){
-    'kaban'=> 'Kepala Badan ',
-    'skpd'=>  DB::table('tbl_skpd')->where('id_skpd',session('id_skpd'))->first()->nama_skpd,
-    'admin'=>  'Administrator'
-  };
+function sesiowner() {
+  $level = session('level');
+  
+  if ($level === 'kaban') {
+      return 'Kepala Badan';
+  } elseif ($level === 'skpd') {
+      $skpd = DB::table('tbl_skpd')->where('id_skpd', session('id_skpd'))->first();
+      return $skpd ? $skpd->nama_skpd : 'Unknown SKPD';
+  } elseif ($level === 'admin') {
+      return 'Administrator';
+  } else {
+      return 'Unknown Level';
+  }
 }
+
 function get_skpd($data){
   return App\Models\SkpdModel::wherein('id_skpd',explode(',',$data))->get();
 }
