@@ -107,7 +107,10 @@ class RealisasiDataNew
                         $d['evaluasi'] = $d['evaluasi'] + $this->get_realisasi_triwulan($qsbk['id_target'], $real, $qsbk['satuan'])['pagu'];
                         array_push($tr, ['triwulan' => $real, 'pagu' => $this->get_realisasi_triwulan($qsbk['id_target'], $real, $qsbk['satuan'])['pagu']]);
 
-                        $bk = $this->get_realisasi_triwulan($qsbk['id_target'], $real, $qsbk['satuan'])['kuantitas'] /  $qsbk['kuantitas'] > 0 ? $this->get_realisasi_triwulan($qsbk['id_target'], $real, $qsbk['satuan'])['kuantitas'] /  $qsbk['kuantitas'] : 0;
+                        //$bk = $this->get_realisasi_triwulan($qsbk['id_target'], $real, $qsbk['satuan'])['kuantitas'] /  $qsbk['kuantitas'] > 0 ? $this->get_realisasi_triwulan($qsbk['id_target'], $real, $qsbk['satuan'])['kuantitas'] /  $qsbk['kuantitas'] : 0;
+                        $realisasi = $this->get_realisasi_triwulan($qsbk['id_target'], $real, $qsbk['satuan'])['kuantitas'];
+                        $kuantitas = $qsbk['kuantitas'];
+                        $bk = (is_numeric($realisasi) && is_numeric($kuantitas) && $kuantitas > 0) ? $realisasi / $kuantitas : 0;
                         $b['persen_kuantitas'] = Str::contains($qsbk['kuantitas'],',') ? 0 : $b['persen_kuantitas'] + ($bk ? round( $bk * 100,2):0);
 
                         $b['persen_pagu'] = $b['persen_pagu'] + round($this->get_realisasi_triwulan($qsbk['id_target'], $real, $qsbk['satuan'])['pagu'] / $qsbk['rp'] * 100,2);
