@@ -154,7 +154,9 @@
                                                 $target = (float) floatval(preg_replace("/[^0-9.]/", "", gettarget($v->id_program_unggulan,$th)));
                                                 $realisasi = (float) floatval(preg_replace("/[^0-9.]/", "", getrealisasi($v->id_program_unggulan,$th)));
                                                 if($target != 0){
-                                                    echo floor(($realisasi/$target) * 100);
+                                                    $hasil = floor(($realisasi/$target) * 100);
+                                                    $hasil = ($hasil > 100)? 100 : $hasil;
+                                                    echo $hasil;
                                                 }else{
                                                     echo floatval(gettarget($v->id_program_unggulan,$th));
                                                 }
