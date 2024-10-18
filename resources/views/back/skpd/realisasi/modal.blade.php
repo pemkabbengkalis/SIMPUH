@@ -44,7 +44,6 @@
                       <!--===TW 1 FORM-->
                       <?php
                         $furl = Request::url();
-                        $furl = str_replace('http','https',$furl);
                       ?>
                       <form action="@if(!empty($vk['tw1_id'])){{ $furl.'/update' }} @else {{ $furl.'/create' }} @endif" method="POST">{{ csrf_field() }}
                         <label>Pilih Tahapan</label>
