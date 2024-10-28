@@ -68,7 +68,7 @@
 						    </div>
 					    </div><!--//cta-holder-->
 
-					    <div class="hero-quotes mt-5">
+					    <div class="hero-quotes mt-5" style="width:56%">
 						    <div id="quotes-carousel" class="quotes-carousel carousel slide carousel-fade mb-5" data-bs-ride="carousel" data-bs-interval="8000">
 								<ol class="carousel-indicators">
 									<li data-bs-target="#quotes-carousel" data-bs-slide-to="0" class="active"></li>
@@ -112,7 +112,10 @@
 			    </div><!--col-->
 			    <div class="col-12 col-md-5 mb-5 align-self-center">
 				    <div class="book-cover-holder">
-					    <img id="optionalstuff" class="img-fluid book-cover" src="{{ asset('frontend') }}/assets/images/orang-simpuh-rev.png" alt="book cover" >
+					    <img style="    left: -450px;
+    top: -100px;
+    position: absolute;
+}" id="optionalstuff" class="img-fluid book-cover" src="{{ asset('frontend') }}/assets/images/orang-simpuh-rev-red.png" alt="book cover" >
 				    </div><!--//book-cover-holder-->
 			    </div><!--col-->
 		    </div><!--//row-->
