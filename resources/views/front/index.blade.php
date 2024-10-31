@@ -99,7 +99,7 @@
 									            <img class="source-profile" src="{{ asset('frontend') }}/assets/images/profiles/profile-2.png" alt="image" >
 									        </div><!--//col-->
 									        <div class="col source-info text-center text-md-start">
-										        <div class="source-name">H. Bagus Santoso</div>
+										        <div class="source-name">Dr. H. Bagus Santoso , MP</div>
 										        <div class="soure-title">Wakil Bupati Bengkalis</div>
 										    </div><!--//col-->
 								        </div><!--//source-->
@@ -112,10 +112,7 @@
 			    </div><!--col-->
 			    <div class="col-12 col-md-5 mb-5 align-self-center">
 				    <div class="book-cover-holder">
-					    <img style="    left: -450px;
-    top: -100px;
-    position: absolute;
-}" id="optionalstuff" class="img-fluid book-cover" src="{{ asset('frontend') }}/assets/images/orang-simpuh-rev-red.png" alt="book cover" >
+					    <img style="left: -90%;top: -20vh;position: absolute;" id="optionalstuff" class="img-fluid book-cover" src="{{ asset('frontend') }}/assets/images/orang-simpuh-rev-red.png" alt="book cover" >
 				    </div><!--//book-cover-holder-->
 			    </div><!--col-->
 		    </div><!--//row-->
