@@ -24,7 +24,7 @@ class KegiatanController extends Controller
     $this->model = $model;
     $this->view = 'back.admin.kegiatan.';
     $this->viewSkpd = 'back.skpd.kegiatan.';
-    View::share(['program'=>$ref,'skpd'=>$skpd]);
+    View::share(['program'=>$ref,'skpd'=>$skpd,'programs'=>$prog]);
   }
   function kegiatan(){
     return view($this->view.'index',['data'=>$this->model]);

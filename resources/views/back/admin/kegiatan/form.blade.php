@@ -39,6 +39,7 @@
                             <label for="">Nama Program</label>
                             <select onchange="getval(this)"  class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" name="id_program" required>
                               <option value="">Pilih Program</option>
+                              @if(!empty($edit))
                               @foreach($program->get() as $row)
                                @php
                                  $indexawal = explode(' ',$row->nama_ref);
@@ -62,6 +63,16 @@
                                @endphp
 
                                @endforeach
+                            @else
+
+                            @foreach($programs->get() as $row)
+                            <option  value="{{$row->kode_program}}">{{$row->kode_program}} {{$row->nama_program}}</option>
+
+                            @endforeach
+
+                            @endif
+
+
                             </select>
                           </div>
                         <div class="form-group">
