@@ -31,6 +31,15 @@
                           <label for="">Kode  Program</label>
                           <input type="text" class="form-control" name="kode_program" value="{{$edit->kode_program ?? null}}" placeholder="Kode Program" required>
                         </div>
+                        @if(!empty($edit))
+                        <!-- <div style="display:flex; flex-direction:row; flex-wrap:wrap; gap:2px;">
+                        @for($i=0;$i < 100;$i++)
+                        <button style="width:100px" type="button" class="btn btn-block btn-default btn-sm">Default</button>
+                        @endfor
+                        
+                        </div> -->
+                        <input type="hidden" name="oldref" value="{{$edit->kode_program.' '.$edit->nama_program}}">
+                        @endif
                         <div class="form-group">
                           <label for="">Nama  Program</label>
                           <input type="text" class="form-control" name="nama_program" value="{{$edit->nama_program ?? null}}" placeholder="Nama Program" required>

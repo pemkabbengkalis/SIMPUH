@@ -56,12 +56,26 @@ function remove($id){
   return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil Dihapus');
 }
 function edit($id,$data){
-  self::where('id_program',$id)->update([
-    'kode_program'=>$data->kode_program,
-    'nama_program'=>$data->nama_program,
-    'id_program_unggulan'=>$data->unggulan
+  DB::beginTransaction(); // Mulai transaksi
+  try {
+    self::where('id_program',$id)->update([
+      'kode_program'=>$data->kode_program,
+      'nama_program'=>$data->nama_program,
+      'id_program_unggulan'=>$data->unggulan
+  
+    ]);
 
-  ]);
-  return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil Diedit');
+     // Insert data ke tabel referensi
+     $refData = [
+      'nama_ref' => $data->kode_program . ' ' . $data->nama_program
+      ];
+      DB::table('refprograms')->where('nama_ref',$data->oldref)->insert($refData);
+
+      DB::commit(); // Commit jika semua berhasil
+    return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil Diedit');
+  } catch (\Throwable $th) {
+    //throw $th;
+  }
+  
 }
 }
