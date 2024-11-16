@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 class Program extends Model
 {
   protected $table = 'tbl_program';
@@ -24,13 +25,29 @@ function program_unggulan(){
     return $this->belongsTo(ProgramUnggulan::class, 'id_program_unggulan', 'id_program_unggulan');
 }
 function input($data){
-  self::insert([
-    'kode_program'=>$data->kode_program,
-    'nama_program'=>$data->nama_program,
-    'id_program_unggulan'=>$data->unggulan
-  ]);
-  return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil ditambah');
+  DB::beginTransaction(); // Mulai transaksi
+  try {
+      // Insert data ke tabel utama
+      self::insert([
+          'kode_program' => $data->kode_program,
+          'nama_program' => $data->nama_program,
+          'id_program_unggulan' => $data->unggulan
+      ]);
+      
+      // Insert data ke tabel referensi
+      $refData = [
+          'nama_ref' => $data->kode_program . ' ' . $data->nama_program
+      ];
+      DB::table('refprograms')->insert($refData);
+
+      DB::commit(); // Commit jika semua berhasil
+      return redirect(modul('path'))->with('success', $this->modul . ' Berhasil ditambah');
+  } catch (\Exception $e) {
+      DB::rollBack(); // Rollback jika terjadi error
+      return redirect(modul('path'))->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+  }
 }
+
 function remove($id){
   $q = self::where('id_program',$id);
   if(empty($q->first()))
@@ -39,12 +56,26 @@ function remove($id){
   return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil Dihapus');
 }
 function edit($id,$data){
-  self::where('id_program',$id)->update([
-    'kode_program'=>$data->kode_program,
-    'nama_program'=>$data->nama_program,
-    'id_program_unggulan'=>$data->unggulan
+  DB::beginTransaction(); // Mulai transaksi
+  try {
+    self::where('id_program',$id)->update([
+      'kode_program'=>$data->kode_program,
+      'nama_program'=>$data->nama_program,
+      'id_program_unggulan'=>$data->unggulan
+  
+    ]);
 
-  ]);
-  return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil Diedit');
+     // Insert data ke tabel referensi
+     $refData = [
+      'nama_ref' => $data->kode_program . ' ' . $data->nama_program
+      ];
+      DB::table('refprograms')->where('nama_ref',$data->oldref)->insert($refData);
+
+      DB::commit(); // Commit jika semua berhasil
+    return redirect(modul('path'))->send()->with('success',$this->modul.' Berhasil Diedit');
+  } catch (\Throwable $th) {
+    //throw $th;
+  }
+  
 }
 }
