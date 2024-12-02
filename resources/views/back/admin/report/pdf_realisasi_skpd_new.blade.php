@@ -214,6 +214,7 @@
                     <br>
                     <br>
                     {{nama_skpd(request('skpd'),'nama_pimpinan')}}<br>
+                    {{nama_skpd(request('skpd'),'tingkat_pimpinan')}}<br>
                     NIP. {{nama_skpd(request('skpd'),'nip_pimpinan')}}
 
                 </td>
